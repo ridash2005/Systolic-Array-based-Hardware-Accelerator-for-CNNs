@@ -1,20 +1,45 @@
 {
-  "design_name": "Systolic4x4_serial_io",
-  "top_module": "Systolic4x4_serial_io",
-  "rtl_files": [
-    "pe_mac.sv",
-    "systolic4x4.sv",
-    "serializer.sv",
-    "deserializer.sv",
-    "systolic4x4_serial_io.sv"
+  "DESIGN_NAME": "Systolic4x4_serial_io",
+  "TOP_MODULE": "top_wrapper",
+  "DESIGN_DIR": ".",
+  "VERILOG_FILES": [
+    "rtl/top_wrapper.v",
+    "rtl/pe_mac.v",
+    "rtl/systolic4x4.v",
+    "rtl/serializer.v",
+    "rtl/deserializer.v",
+    "rtl/systolic4x4_serial_io.v"
   ],
-  "sdc_file": "constraints.sdc",
-  "pin_constraints_file": "pins.pcf",
-  "clock_name": "clk",
-  "target_freq_hz": 500000000,
-  "pdk": "sky130",
-  "standard_cell_library": "sky130_fd_sc_hd",
-  "power_domain": [
+  "FALLBACK_SDC_FILE": "constraints.sdc",
+  "PIN_CONSTRAINTS_FILE": "pins.pcf",
+  "CLOCK_PORT": "clk",
+  "CLOCK_PORTS": ["clk"],
+  "RESET_PORTS": ["rst_n"],
+  "IO_PORTS": [
+  "clk",
+  "rst_n",
+  "start",
+  "done", 
+  "A_in_serial_data",
+  "A_in_serial_clk",
+  "A_in_frame_sync",
+  "B_in_serial_data",
+  "B_in_serial_clk",
+  "B_in_frame_sync",
+  "C_out_serial_data",
+  "C_out_serial_clk",
+  "C_out_frame_sync"
+ ],
+  "CLOCK_INFO": {
+    "clk": {
+     "frequency_hz": 100000000,
+     "waveform": [0, 1]
+    }
+  },
+  "TARGET_FREQUENCY_HZ": 100000000,
+  "PDK": "sky130A",
+  "STANDARD_CELL_LIBRARY": "sky130_fd_sc_hd",
+  "POWER_DOMAIN": [
     {
       "name": "core",
       "voltage": 1.0,
@@ -23,37 +48,40 @@
       "power": true
     }
   ],
-  "clock_ports": [
-    "clk"
-  ],
-  "reset_ports": [
-    "rst_n"
-  ],
-  "io_ports": [
-    "start",
-    "done",
-    "A_in_serial_data",
-    "A_in_serial_clk",
-    "A_in_frame_sync",
-    "B_in_serial_data",
-    "B_in_serial_clk",
-    "B_in_frame_sync",
-    "C_out_serial_data",
-    "C_out_serial_clk",
-    "C_out_frame_sync"
-  ],
-  "clock_info": {
-    "clk": {
-      "frequency_hz": 500000000,
-      "waveform": [0, 1]
-    }
-  },
-  "floorplan": {
+  "FLOORPLAN": {
     "die_size_x_um": 5000,
     "die_size_y_um": 5000,
     "core_offset_x_um": 200,
     "core_offset_y_um": 200,
     "core_size_x_um": 4600,
     "core_size_y_um": 4600
+  },
+  "ERROR_ON_UNMAPPED_CELLS": false,
+  "ERROR_ON_SYNTH_CHECKS": true,
+  "ERROR_ON_LINTER_ERRORS": false,
+  "ERROR_ON_LINTER_TIMING_CONSTRUCTS": false,
+  "RUN_REPORTS": true,
+  "RUN_OPENROAD_REPORTS": true,
+  "RUN_FLOORPLAN_REPORTS": true,
+  "PNR_SDC_FILE": "constraints.sdc",
+  "SIGNOFF_SDC_FILE": "constraints.sdc",
+
+  
+  "design_name": "Systolic4x4_serial_io",
+  "output_path": "./results",
+  "results_dir": "./results",
+  "final_gds": "final/gds/${Systolic4x4_serial_io}.gds",
+  "final_lef": "final/lef/${Systolic4x4_serial_io}.lef",
+  "visualization": {
+    "reports_dir": "./results/reports",
+    "layout_dir": "./results/layouts",
+    "logs_dir": "./results/logs"
+  },
+  "commands": {
+    "save_reports": "mkdir -p ./results/reports && cp runs/*/final/*.rpt ./results/reports/",
+    "save_layouts": "mkdir -p ./results/layouts && cp runs/*/final/gds/*.gds ./results/layouts/",
+    "save_logs": "mkdir -p ./results/logs && cp runs/*/logs/*.log ./results/logs/"
   }
-}
+
+
+}  

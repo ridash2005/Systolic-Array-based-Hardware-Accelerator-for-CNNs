@@ -1,0 +1,5 @@
+- cell: Systolic4x4_serial_io
+  inout: []
+  input: []
+  output:
+  - C_out_serial_data

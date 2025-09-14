@@ -1,0 +1,86 @@
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:34:15: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   34 |         A_reg <= 1'sb0;
+      |               ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.018
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:35:15: Operator ASSIGNDLY expects 8 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   35 |         B_reg <= 1'sb0;
+      |               ^~
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:44:18: Operator ASSIGNDLY expects 16 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   44 |         prod_reg <= 1'sb0;
+      |                  ^~
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:51:17: Operator ASSIGNDLY expects 32 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   51 |         acc_reg <= 1'sb0;
+      |                 ^~
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:54:21: Operator ASSIGNDLY expects 32 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   54 |             acc_reg <= 1'sb0;
+      |                     ^~
+%Warning-WIDTHEXPAND: rtl/pe_mac.v:56:32: Operator ADD expects 32 bits on the RHS, but RHS's SIGNED generates 16 bits.
+                                        : ... note: In instance 'Systolic4x4_serial_io.systolic_inst.rows[3].cols[3].pe_i'
+   56 |             acc_reg <= acc_reg + $signed(prod_reg);
+      |                                ^
+%Warning-WIDTHEXPAND: rtl/serializer.v:57:25: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'bit_idx' generates 10 bits.
+                                            : ... note: In instance 'Systolic4x4_serial_io.ser_C'
+   57 |             if (bit_idx == (WIDTH - 1)) begin
+      |                         ^~
+%Warning-WIDTHEXPAND: rtl/deserializer.v:49:25: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'bit_idx' generates 8 bits.
+                                              : ... note: In instance 'Systolic4x4_serial_io.deser_A'
+   49 |             if (bit_idx == (WIDTH - 1)) begin
+      |                         ^~
+%Warning-WIDTHEXPAND: rtl/systolic4x4.v:80:31: Operator ASSIGN expects 8 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                             : ... note: In instance 'Systolic4x4_serial_io.systolic_inst'
+   80 |                 A_shift[i][j] = 1'sb0;
+      |                               ^
+%Warning-WIDTHEXPAND: rtl/systolic4x4.v:84:31: Operator ASSIGN expects 8 bits on the Assign RHS, but Assign RHS's CONST '1'sh0' generates 1 bits.
+                                             : ... note: In instance 'Systolic4x4_serial_io.systolic_inst'
+   84 |                 B_shift[i][j] = 1'sb0;
+      |                               ^
+%Warning-UNUSEDSIGNAL: rtl/systolic4x4_serial_io.v:94:6: Signal is not used: 'A_in_valid'
+                                                       : ... note: In instance 'Systolic4x4_serial_io'
+   94 | wire A_in_valid;
+      |      ^~~~~~~~~~
+%Warning-UNUSEDSIGNAL: rtl/systolic4x4_serial_io.v:95:6: Signal is not used: 'B_in_valid'
+                                                       : ... note: In instance 'Systolic4x4_serial_io'
+   95 | wire B_in_valid;
+      |      ^~~~~~~~~~
+%Warning-UNUSEDSIGNAL: rtl/systolic4x4_serial_io.v:98:6: Signal is not used: 'ser_busy'
+                                                       : ... note: In instance 'Systolic4x4_serial_io'
+   98 | wire ser_busy;
+      |      ^~~~~~~~
+%Warning-UNUSEDSIGNAL: rtl/deserializer.v:11:16: Signal is not used: 'clk'
+                                               : ... note: In instance 'Systolic4x4_serial_io.deser_A'
+   11 |     input wire clk;
+      |                ^~~
+%Warning-UNUSEDSIGNAL: rtl/deserializer.v:22:43: Bits of signal are not used: 'kept_shift_reg'[0]
+                                               : ... note: In instance 'Systolic4x4_serial_io.deser_A'
+   22 |     (* keep = "true" *) reg [WIDTH - 1:0] kept_shift_reg;
+      |                                           ^~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: rtl/deserializer.v:24:29: Signal is not used: 'kept_receiving'
+                                               : ... note: In instance 'Systolic4x4_serial_io.deser_A'
+   24 |     (* keep = "true" *) reg kept_receiving;
+      |                             ^~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: rtl/serializer.v:26:29: Signal is not used: 'kept_transmitting'
+                                             : ... note: In instance 'Systolic4x4_serial_io.ser_C'
+   26 |     (* keep = "true" *) reg kept_transmitting;
+      |                             ^~~~~~~~~~~~~~~~~
+%Warning-BLKSEQ: rtl/systolic4x4.v:80:31: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+   80 |                 A_shift[i][j] = 1'sb0;
+      |                               ^
+%Warning-BLKSEQ: rtl/systolic4x4.v:84:31: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+   84 |                 B_shift[i][j] = 1'sb0;
+      |                               ^
+%Warning-BLKSEQ: rtl/systolic4x4.v:88:35: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+   88 |                 A_shift[i][i + j] = A_in[((i * K) + j) * AW +: AW];
+      |                                   ^
+%Warning-BLKSEQ: rtl/systolic4x4.v:92:35: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+   92 |                 B_shift[i + j][j] = B_in[((i * COLS) + j) * BW +: BW];
+      |                                   ^
