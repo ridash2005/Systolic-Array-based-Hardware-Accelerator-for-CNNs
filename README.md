@@ -1,7 +1,7 @@
-# AISCAL-SystolicAccel
+# Systolic-Accelerator
 
 ## Description:
-AISCAL-SystolicAccel is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
+AISCAL-Systolic-Accelarator is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
 
 Currently, the focus of development and testing is on the RTL design with verified correctness through simulation. The ASIC physical design (synthesis, placement, routing, and signoff) remains to be completed using the next-generation open-source ASIC toolchain, OpenLane 2.
 
