@@ -1,1 +1,0 @@
-openroad -exit -no_splash -metrics /home/hp/openlane2/project1/runs/RUN_2025-09-14_22-17-56/17-openroad-cutrows/or_metrics_out.json /nix/store/gbxly13vs56ql1w26igylxbk425wygmz-python3-3.11.9-env/lib/python3.11/site-packages/openlane/scripts/openroad/cut_rows.tcl

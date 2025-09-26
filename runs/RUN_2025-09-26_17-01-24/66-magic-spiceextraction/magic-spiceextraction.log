@@ -1,0 +1,665 @@
+
+Magic 8.3 revision 489 - Compiled on Thu Aug 22 13:45:15 UTC 2024.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Loading "/nix/store/pqqzrmrn6azxjkzi6ayasvqgz1mvpcnm-python3-3.11.9-env/lib/python3.11/site-packages/openlane/scripts/magic/wrapper.tcl" from command line.
+> lef read /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__nom.tlef
+Reading LEF data from file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__nom.tlef.
+This action cannot be undone.
+LEF read, Line 82 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 83 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 116 (Message): Unknown keyword "MINENCLOSEDAREA" in LEF file; ignoring.
+LEF read, Line 118 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 119 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 125 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 126 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 127 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 160 (Message): Unknown keyword "MINENCLOSEDAREA" in LEF file; ignoring.
+LEF read, Line 168 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 169 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 171 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 172 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 173 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 210 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 211 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 213 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 214 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 215 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 252 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 253 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read, Line 255 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 256 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 257 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 294 (Message): Unknown keyword "ANTENNAMODEL" in LEF file; ignoring.
+LEF read, Line 295 (Message): Unknown keyword "ANTENNADIFFSIDEAREARATIO" in LEF file; ignoring.
+LEF read: Processed 801 lines.
+> lef read /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd.lef
+Reading LEF data from file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd.lef.
+This action cannot be undone.
+LEF read: Processed 278 lines.
+> lef read /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef
+Reading LEF data from file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef.
+This action cannot be undone.
+LEF read: Processed 56536 lines.
+> def read /home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/52-odb-cellfrequencytables/Systolic4x4_serial_io.def -noblockage -labels
+Reading DEF data from file /home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/52-odb-cellfrequencytables/Systolic4x4_serial_io.def.
+This action cannot be undone.
+  Processed 4 vias total.
+  Processed 52756 subcell instances total.
+  Processed 15 pins total.
+  Processed 2 special nets total.
+  Processed 17218 nets total.
+DEF read: Processed 324959 lines.
+Moving label "A_in\[124\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "A_in\[61\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "C_out\[313\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "C_out\[316\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "C_out\[34\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "C_out\[366\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "C_out\[394\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00006_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00223_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00305_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00615_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00633_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00750_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00877_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_00960_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01079_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01172_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01295_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01389_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01507_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01626_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01720_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01966_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01972_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01977_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01978_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01981_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01991_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_01999_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02012_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02014_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02019_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02021_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02042_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02043_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02047_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02049_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02056_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02061_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_02065_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02068_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02072_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02077_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02089_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02098_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_02099_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02103_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02108_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02112_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_02114_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_02134_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02143_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02146_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02161_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02166_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02168_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02180_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02194_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02197_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02201_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_02210_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02215_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02216_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02222_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02223_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02224_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02225_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02240_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02488_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02541_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02640_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02735_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02765_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02782_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02785_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_02873_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03287_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03301_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03398_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03478_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03486_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03502_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_03530_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_03569_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_03577_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_03582_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03592_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03594_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03617_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03700_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03751_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03756_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_03802_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_03803_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_03814_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_03935_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03955_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03967_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_03983_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04046_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_04073_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_04110_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04159_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04256_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04325_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04355_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04474_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04505_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04573_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_04616_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_04625_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04628_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04728_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04746_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04782_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04810_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_04831_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_04849_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_04995_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05064_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05073_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05146_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05156_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05208_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05241_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05434_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05448_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05462_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05510_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_05575_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05578_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05642_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05645_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05647_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05681_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05721_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05740_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05752_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05770_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05782_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05785_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_05846_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_05984_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_05990_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06071_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06106_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06148_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06151_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06200_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06327_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06381_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06416_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06439_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06445_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06457_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06490_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06496_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06569_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_06670_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06685_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06730_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06779_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06797_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06846_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_06869_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_06952_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06953_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_06983_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07004_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07088_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07165_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07198_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_07205_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07231_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07238_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_07311_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07315_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07323_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07351_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07355_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07373_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07415_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07437_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07463_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07468_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07586_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07640_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_07686_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_07797_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07811_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07836_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07865_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_07873_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07884_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07901_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_07959_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08026_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08046_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08078_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08210_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08265_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_08299_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08419_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08457_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08463_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08491_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08494_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08502_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08530_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08561_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08645_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08716_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08733_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08752_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_08803_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_08918_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_08974_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09042_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09051_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_09074_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_09266_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09278_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09322_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09420_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09508_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09544_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09600_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09607_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_09646_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09663_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_09675_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09728_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09757_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_09758_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_09763_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09775_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09780_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_09785_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_09810_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09814_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_09957_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10053_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10082_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_10184_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_10261_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10324_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10375_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10384_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10701_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_10754_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_10830_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_10898_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_11012_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_11058_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_11132_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11136_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_11202_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11279_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11319_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11340_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_11345_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11350_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_11356_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11379_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_11470_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11573_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11574_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11612_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11717_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_11819_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11850_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11883_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_11897_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_11976_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_11998_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_12009_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_12065_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12285_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12329_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12333_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_12388_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12451_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12459_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12474_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_12507_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_12509_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_12510_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_12514_" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "_12633_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12651_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12655_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12662_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12674_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12687_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12757_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12786_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12798_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_12808_" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "_12868_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_13040_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_13049_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "_13057_" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "_13076_" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "clknet_0_clk" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "clknet_leaf_143_clk" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "clknet_leaf_20_A_in_serial_clk" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "clknet_leaf_299_clk" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "clknet_leaf_41_clk" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "deser_A.serial_word\[67\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "deser_A.shift_reg\[63\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "deser_B.serial_word\[100\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "net100" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "net102" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "net6" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "net97" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "net99" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[0\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[10\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[116\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[118\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[130\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[131\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[132\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[136\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[143\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[146\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[147\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[148\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[150\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[163\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[165\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[172\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[178\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[17\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[181\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[183\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[187\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[190\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[193\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[195\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[196\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[205\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[206\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[207\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[214\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[217\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[218\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[222\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[223\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[224\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[226\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[229\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[230\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[233\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[234\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[236\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[241\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[250\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[252\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[259\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[25\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[261\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[263\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[264\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[267\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[275\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[27\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[281\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[283\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[287\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[292\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[29\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[302\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[303\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[305\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[307\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[311\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[315\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[321\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[322\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[326\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[327\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[329\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[339\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[343\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[345\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[348\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[351\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[353\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[354\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[357\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[365\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[367\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[371\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[373\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[377\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[385\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[386\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[392\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[394\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[39\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[400\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[401\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[413\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[415\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[416\]" from metal3 to via3 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[417\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[418\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[421\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[424\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[431\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[432\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[436\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[439\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[43\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[440\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[442\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[445\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[461\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[462\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[470\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[475\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[480\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[487\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[488\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[491\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[494\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[506\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[507\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[508\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[509\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[50\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[54\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[68\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[71\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[73\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[77\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[80\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[88\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[89\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "ser_C.shift_reg\[94\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[13\]\[4\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[13\]\[5\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[15\]\[3\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[2\]\[4\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[3\]\[4\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[5\]\[1\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.A_outs\[7\]\[0\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.B_outs\[10\]\[5\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.B_outs\[13\]\[5\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.B_shift\[1\]\[2\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[0\]\[15\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[11\]\[1\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[13\]\[25\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[2\]\[12\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[2\]\[19\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[2\]\[4\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[2\]\[9\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[3\]\[10\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[3\]\[29\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[4\]\[11\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.acc_wires\[8\]\[18\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.row_loop\[1\].col_loop\[3\].pe_i.prod_reg\[5\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.row_loop\[1\].col_loop\[3\].pe_i.prod_reg\[9\]" from metal1 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.row_loop\[2\].col_loop\[3\].pe_i.prod_reg\[14\]" from metal2 to via1 in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.row_loop\[3\].col_loop\[2\].pe_i.prod_reg\[15\]" from metal1 to viali in cell Systolic4x4_serial_io.
+Moving label "systolic_inst.row_loop\[3\].col_loop\[2\].pe_i.prod_reg\[7\]" from metal2 to via2 in cell Systolic4x4_serial_io.
+Processing Systolic4x4_serial_io
+Extracting sky130_ef_sc_hd__decap_12 into sky130_ef_sc_hd__decap_12.ext:
+Extracting sky130_fd_sc_hd__decap_3 into sky130_fd_sc_hd__decap_3.ext:
+Extracting sky130_fd_sc_hd__fill_1 into sky130_fd_sc_hd__fill_1.ext:
+Extracting sky130_fd_sc_hd__tapvpwrvgnd_1 into sky130_fd_sc_hd__tapvpwrvgnd_1.ext:
+Extracting sky130_fd_sc_hd__decap_4 into sky130_fd_sc_hd__decap_4.ext:
+Extracting sky130_fd_sc_hd__decap_6 into sky130_fd_sc_hd__decap_6.ext:
+Extracting sky130_fd_sc_hd__buf_1 into sky130_fd_sc_hd__buf_1.ext:
+Extracting sky130_fd_sc_hd__fill_2 into sky130_fd_sc_hd__fill_2.ext:
+Extracting sky130_fd_sc_hd__decap_8 into sky130_fd_sc_hd__decap_8.ext:
+Extracting sky130_fd_sc_hd__dfrtp_1 into sky130_fd_sc_hd__dfrtp_1.ext:
+Extracting sky130_fd_sc_hd__and2_1 into sky130_fd_sc_hd__and2_1.ext:
+Extracting sky130_fd_sc_hd__a221o_1 into sky130_fd_sc_hd__a221o_1.ext:
+Extracting sky130_fd_sc_hd__mux2_1 into sky130_fd_sc_hd__mux2_1.ext:
+Extracting sky130_fd_sc_hd__clkbuf_8 into sky130_fd_sc_hd__clkbuf_8.ext:
+Extracting sky130_fd_sc_hd__clkinv_2 into sky130_fd_sc_hd__clkinv_2.ext:
+Extracting sky130_fd_sc_hd__clkinvlp_4 into sky130_fd_sc_hd__clkinvlp_4.ext:
+Extracting sky130_fd_sc_hd__clkinv_8 into sky130_fd_sc_hd__clkinv_8.ext:
+Extracting sky130_fd_sc_hd__a2bb2o_1 into sky130_fd_sc_hd__a2bb2o_1.ext:
+Extracting sky130_fd_sc_hd__a22o_1 into sky130_fd_sc_hd__a22o_1.ext:
+Extracting sky130_fd_sc_hd__a32o_1 into sky130_fd_sc_hd__a32o_1.ext:
+Extracting sky130_fd_sc_hd__nand3_1 into sky130_fd_sc_hd__nand3_1.ext:
+Extracting sky130_fd_sc_hd__xnor2_1 into sky130_fd_sc_hd__xnor2_1.ext:
+Extracting sky130_fd_sc_hd__or2_1 into sky130_fd_sc_hd__or2_1.ext:
+Extracting sky130_fd_sc_hd__nand2_1 into sky130_fd_sc_hd__nand2_1.ext:
+Extracting sky130_fd_sc_hd__a21oi_1 into sky130_fd_sc_hd__a21oi_1.ext:
+Extracting sky130_fd_sc_hd__xor2_1 into sky130_fd_sc_hd__xor2_1.ext:
+Extracting sky130_fd_sc_hd__o21a_1 into sky130_fd_sc_hd__o21a_1.ext:
+Extracting sky130_fd_sc_hd__o21ai_1 into sky130_fd_sc_hd__o21ai_1.ext:
+Extracting sky130_fd_sc_hd__inv_8 into sky130_fd_sc_hd__inv_8.ext:
+Extracting sky130_fd_sc_hd__inv_2 into sky130_fd_sc_hd__inv_2.ext:
+Extracting sky130_fd_sc_hd__a21o_1 into sky130_fd_sc_hd__a21o_1.ext:
+Extracting sky130_fd_sc_hd__a21bo_1 into sky130_fd_sc_hd__a21bo_1.ext:
+Extracting sky130_fd_sc_hd__clkinv_4 into sky130_fd_sc_hd__clkinv_4.ext:
+Extracting sky130_fd_sc_hd__a31o_1 into sky130_fd_sc_hd__a31o_1.ext:
+Extracting sky130_fd_sc_hd__and2b_1 into sky130_fd_sc_hd__and2b_1.ext:
+Extracting sky130_fd_sc_hd__or3_1 into sky130_fd_sc_hd__or3_1.ext:
+Extracting sky130_fd_sc_hd__dfrtp_2 into sky130_fd_sc_hd__dfrtp_2.ext:
+Extracting sky130_fd_sc_hd__xnor2_2 into sky130_fd_sc_hd__xnor2_2.ext:
+Extracting sky130_fd_sc_hd__xor2_2 into sky130_fd_sc_hd__xor2_2.ext:
+Extracting sky130_fd_sc_hd__nor2_1 into sky130_fd_sc_hd__nor2_1.ext:
+Extracting sky130_fd_sc_hd__o41a_1 into sky130_fd_sc_hd__o41a_1.ext:
+Extracting sky130_fd_sc_hd__a311oi_4 into sky130_fd_sc_hd__a311oi_4.ext:
+Extracting sky130_fd_sc_hd__and4_1 into sky130_fd_sc_hd__and4_1.ext:
+Extracting sky130_fd_sc_hd__or4_1 into sky130_fd_sc_hd__or4_1.ext:
+Extracting sky130_fd_sc_hd__clkbuf_4 into sky130_fd_sc_hd__clkbuf_4.ext:
+Extracting sky130_fd_sc_hd__nand4_1 into sky130_fd_sc_hd__nand4_1.ext:
+Extracting sky130_fd_sc_hd__o21ai_2 into sky130_fd_sc_hd__o21ai_2.ext:
+Extracting sky130_fd_sc_hd__and3_1 into sky130_fd_sc_hd__and3_1.ext:
+Extracting sky130_fd_sc_hd__a21oi_2 into sky130_fd_sc_hd__a21oi_2.ext:
+Extracting sky130_fd_sc_hd__o31a_1 into sky130_fd_sc_hd__o31a_1.ext:
+Extracting sky130_fd_sc_hd__inv_6 into sky130_fd_sc_hd__inv_6.ext:
+Extracting sky130_fd_sc_hd__bufinv_16 into sky130_fd_sc_hd__bufinv_16.ext:
+Extracting sky130_fd_sc_hd__a211o_1 into sky130_fd_sc_hd__a211o_1.ext:
+Extracting sky130_fd_sc_hd__o21ba_1 into sky130_fd_sc_hd__o21ba_1.ext:
+Extracting sky130_fd_sc_hd__o221a_1 into sky130_fd_sc_hd__o221a_1.ext:
+Extracting sky130_fd_sc_hd__nand2b_1 into sky130_fd_sc_hd__nand2b_1.ext:
+Extracting sky130_fd_sc_hd__buf_4 into sky130_fd_sc_hd__buf_4.ext:
+Extracting sky130_fd_sc_hd__o211ai_1 into sky130_fd_sc_hd__o211ai_1.ext:
+Extracting sky130_fd_sc_hd__or3b_1 into sky130_fd_sc_hd__or3b_1.ext:
+Extracting sky130_fd_sc_hd__clkbuf_16 into sky130_fd_sc_hd__clkbuf_16.ext:
+Extracting sky130_fd_sc_hd__a21boi_1 into sky130_fd_sc_hd__a21boi_1.ext:
+Extracting sky130_fd_sc_hd__o311a_1 into sky130_fd_sc_hd__o311a_1.ext:
+Extracting sky130_fd_sc_hd__buf_6 into sky130_fd_sc_hd__buf_6.ext:
+Extracting sky130_fd_sc_hd__dfrtp_4 into sky130_fd_sc_hd__dfrtp_4.ext:
+Extracting sky130_fd_sc_hd__o211ai_2 into sky130_fd_sc_hd__o211ai_2.ext:
+Extracting sky130_fd_sc_hd__o2bb2a_1 into sky130_fd_sc_hd__o2bb2a_1.ext:
+Extracting sky130_fd_sc_hd__o211a_1 into sky130_fd_sc_hd__o211a_1.ext:
+Extracting sky130_fd_sc_hd__a311o_2 into sky130_fd_sc_hd__a311o_2.ext:
+Extracting sky130_fd_sc_hd__o31ai_1 into sky130_fd_sc_hd__o31ai_1.ext:
+Extracting sky130_fd_sc_hd__buf_12 into sky130_fd_sc_hd__buf_12.ext:
+Extracting sky130_fd_sc_hd__nand2_2 into sky130_fd_sc_hd__nand2_2.ext:
+Extracting sky130_fd_sc_hd__inv_12 into sky130_fd_sc_hd__inv_12.ext:
+Extracting sky130_fd_sc_hd__diode_2 into sky130_fd_sc_hd__diode_2.ext:
+Extracting sky130_fd_sc_hd__nor3_1 into sky130_fd_sc_hd__nor3_1.ext:
+Extracting sky130_fd_sc_hd__and2_4 into sky130_fd_sc_hd__and2_4.ext:
+Extracting sky130_fd_sc_hd__or2_2 into sky130_fd_sc_hd__or2_2.ext:
+Extracting sky130_fd_sc_hd__a31oi_1 into sky130_fd_sc_hd__a31oi_1.ext:
+Extracting sky130_fd_sc_hd__a22oi_1 into sky130_fd_sc_hd__a22oi_1.ext:
+Extracting sky130_fd_sc_hd__a211oi_2 into sky130_fd_sc_hd__a211oi_2.ext:
+Extracting sky130_fd_sc_hd__nand4_2 into sky130_fd_sc_hd__nand4_2.ext:
+Extracting sky130_fd_sc_hd__o22ai_2 into sky130_fd_sc_hd__o22ai_2.ext:
+Extracting sky130_fd_sc_hd__xnor2_4 into sky130_fd_sc_hd__xnor2_4.ext:
+Extracting sky130_fd_sc_hd__o32a_1 into sky130_fd_sc_hd__o32a_1.ext:
+Extracting sky130_fd_sc_hd__and4b_1 into sky130_fd_sc_hd__and4b_1.ext:
+Extracting sky130_fd_sc_hd__and3b_1 into sky130_fd_sc_hd__and3b_1.ext:
+Extracting sky130_fd_sc_hd__dfxtp_1 into sky130_fd_sc_hd__dfxtp_1.ext:
+Extracting sky130_fd_sc_hd__a211oi_1 into sky130_fd_sc_hd__a211oi_1.ext:
+Extracting sky130_fd_sc_hd__nand2_4 into sky130_fd_sc_hd__nand2_4.ext:
+Extracting sky130_fd_sc_hd__o21bai_1 into sky130_fd_sc_hd__o21bai_1.ext:
+Extracting sky130_fd_sc_hd__nand3_2 into sky130_fd_sc_hd__nand3_2.ext:
+Extracting sky130_fd_sc_hd__a22oi_2 into sky130_fd_sc_hd__a22oi_2.ext:
+Extracting sky130_fd_sc_hd__xor2_4 into sky130_fd_sc_hd__xor2_4.ext:
+Extracting sky130_fd_sc_hd__buf_8 into sky130_fd_sc_hd__buf_8.ext:
+Extracting sky130_fd_sc_hd__and4bb_1 into sky130_fd_sc_hd__and4bb_1.ext:
+Extracting sky130_fd_sc_hd__a31oi_2 into sky130_fd_sc_hd__a31oi_2.ext:
+Extracting sky130_fd_sc_hd__or2_4 into sky130_fd_sc_hd__or2_4.ext:
+Extracting sky130_fd_sc_hd__and2_2 into sky130_fd_sc_hd__and2_2.ext:
+Extracting sky130_fd_sc_hd__nor4_1 into sky130_fd_sc_hd__nor4_1.ext:
+Extracting sky130_fd_sc_hd__o22a_1 into sky130_fd_sc_hd__o22a_1.ext:
+Extracting sky130_fd_sc_hd__a221oi_2 into sky130_fd_sc_hd__a221oi_2.ext:
+Extracting sky130_fd_sc_hd__buf_2 into sky130_fd_sc_hd__buf_2.ext:
+Extracting sky130_fd_sc_hd__clkbuf_2 into sky130_fd_sc_hd__clkbuf_2.ext:
+Extracting sky130_fd_sc_hd__inv_4 into sky130_fd_sc_hd__inv_4.ext:
+Extracting sky130_fd_sc_hd__a21boi_2 into sky130_fd_sc_hd__a21boi_2.ext:
+Extracting sky130_fd_sc_hd__nand3b_2 into sky130_fd_sc_hd__nand3b_2.ext:
+Extracting sky130_fd_sc_hd__a221oi_1 into sky130_fd_sc_hd__a221oi_1.ext:
+Extracting sky130_fd_sc_hd__nor3b_1 into sky130_fd_sc_hd__nor3b_1.ext:
+Extracting sky130_fd_sc_hd__or4b_1 into sky130_fd_sc_hd__or4b_1.ext:
+Extracting sky130_fd_sc_hd__nand3_4 into sky130_fd_sc_hd__nand3_4.ext:
+Extracting sky130_fd_sc_hd__clkinv_16 into sky130_fd_sc_hd__clkinv_16.ext:
+Extracting sky130_fd_sc_hd__and3_2 into sky130_fd_sc_hd__and3_2.ext:
+Extracting sky130_fd_sc_hd__nor2_8 into sky130_fd_sc_hd__nor2_8.ext:
+Extracting sky130_fd_sc_hd__dfxtp_2 into sky130_fd_sc_hd__dfxtp_2.ext:
+Extracting sky130_fd_sc_hd__nor2_2 into sky130_fd_sc_hd__nor2_2.ext:
+Extracting sky130_fd_sc_hd__nor4b_1 into sky130_fd_sc_hd__nor4b_1.ext:
+Extracting sky130_fd_sc_hd__nor3_2 into sky130_fd_sc_hd__nor3_2.ext:
+Extracting sky130_fd_sc_hd__a311o_1 into sky130_fd_sc_hd__a311o_1.ext:
+Extracting sky130_fd_sc_hd__a211o_2 into sky130_fd_sc_hd__a211o_2.ext:
+Extracting sky130_fd_sc_hd__o211ai_4 into sky130_fd_sc_hd__o211ai_4.ext:
+Extracting sky130_fd_sc_hd__a311oi_2 into sky130_fd_sc_hd__a311oi_2.ext:
+Extracting sky130_fd_sc_hd__dlymetal6s2s_1 into sky130_fd_sc_hd__dlymetal6s2s_1.ext:
+Extracting sky130_fd_sc_hd__o211a_2 into sky130_fd_sc_hd__o211a_2.ext:
+Extracting sky130_fd_sc_hd__a211oi_4 into sky130_fd_sc_hd__a211oi_4.ext:
+Extracting sky130_fd_sc_hd__or4b_2 into sky130_fd_sc_hd__or4b_2.ext:
+Extracting sky130_fd_sc_hd__nand3b_1 into sky130_fd_sc_hd__nand3b_1.ext:
+Extracting sky130_fd_sc_hd__o31ai_2 into sky130_fd_sc_hd__o31ai_2.ext:
+Extracting sky130_fd_sc_hd__a2111o_1 into sky130_fd_sc_hd__a2111o_1.ext:
+Extracting sky130_fd_sc_hd__o311ai_4 into sky130_fd_sc_hd__o311ai_4.ext:
+Extracting sky130_fd_sc_hd__nand4_4 into sky130_fd_sc_hd__nand4_4.ext:
+Extracting sky130_fd_sc_hd__a31o_4 into sky130_fd_sc_hd__a31o_4.ext:
+Extracting sky130_fd_sc_hd__nand2_8 into sky130_fd_sc_hd__nand2_8.ext:
+Extracting sky130_fd_sc_hd__a41o_1 into sky130_fd_sc_hd__a41o_1.ext:
+Extracting sky130_fd_sc_hd__and2b_4 into sky130_fd_sc_hd__and2b_4.ext:
+Extracting Systolic4x4_serial_io into Systolic4x4_serial_io.ext:
+exttospice finished.
+Using technology "sky130A", version 1.0.493-0-g0fe599b

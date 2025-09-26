@@ -1,0 +1,41 @@
+139. Printing statistics.
+
+=== Systolic4x4_serial_io ===
+
+   Number of wires:              16260
+   Number of wire bits:          21466
+   Number of public wires:         150
+   Number of public wire bits:    3946
+   Number of ports:                 13
+   Number of port bits:             13
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              19768
+     $_ANDNOT_                    3513
+     $_AND_                        675
+     $_MUX_                       4366
+     $_NAND_                       945
+     $_NOR_                        712
+     $_NOT_                        427
+     $_ORNOT_                      473
+     $_OR_                        1605
+     $_XNOR_                       920
+     $_XOR_                       2636
+     sky130_fd_sc_hd__dfrtp_2     3144
+     sky130_fd_sc_hd__dfxtp_2      352
+
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+
+   Chip area for module '\Systolic4x4_serial_io': 90096.409600
+     of which used for sequential elements: 90096.409600 (100.00%)
+

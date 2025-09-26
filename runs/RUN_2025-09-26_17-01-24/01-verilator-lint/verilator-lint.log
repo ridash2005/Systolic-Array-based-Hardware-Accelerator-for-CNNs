@@ -1,0 +1,10 @@
+%Warning-WIDTHEXPAND: rtl/serializer.v:50:29: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'bit_idx' generates 9 bits.
+                                            : ... note: In instance 'Systolic4x4_serial_io.ser_C'
+   50 |                 if (bit_idx == WIDTH - 1) begin
+      |                             ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.018
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-WIDTHEXPAND: rtl/deserializer.v:43:29: Operator EQ expects 32 bits on the LHS, but LHS's VARREF 'bit_idx' generates 7 bits.
+                                              : ... note: In instance 'Systolic4x4_serial_io.deser_A'
+   43 |                 if (bit_idx == WIDTH-1) begin
+      |                             ^~

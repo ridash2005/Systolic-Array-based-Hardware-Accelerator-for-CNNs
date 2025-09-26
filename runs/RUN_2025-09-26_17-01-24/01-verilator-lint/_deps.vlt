@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/tmp/e283f70191834ee4b41bd8726345d43d.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/tmp/e283f70191834ee4b41bd8726345d43d.bb.v"

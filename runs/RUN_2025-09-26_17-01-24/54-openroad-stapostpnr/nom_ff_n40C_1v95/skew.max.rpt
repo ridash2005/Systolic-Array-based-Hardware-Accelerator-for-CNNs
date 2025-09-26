@@ -1,0 +1,30 @@
+
+===========================================================================
+Clock Skew (Setup)
+============================================================================
+======================= nom_ff_n40C_1v95 Corner ===================================
+
+Clock A_in_serial_clk
+0.355107 source latency _26464_/CLK ^
+-0.337160 target latency _26964_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.117947 setup skew
+
+Clock B_in_serial_clk
+0.368621 source latency _29601_/CLK ^
+-0.351062 target latency _26647_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.117559 setup skew
+
+Clock clk
+0.723161 source latency _27986_/CLK ^
+-0.584312 target latency _28007_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.238849 setup skew
+

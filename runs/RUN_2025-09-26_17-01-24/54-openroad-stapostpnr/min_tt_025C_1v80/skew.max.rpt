@@ -1,0 +1,30 @@
+
+===========================================================================
+Clock Skew (Setup)
+============================================================================
+======================= min_tt_025C_1v80 Corner ===================================
+
+Clock A_in_serial_clk
+0.496886 source latency _26464_/CLK ^
+-0.475623 target latency _26964_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.121263 setup skew
+
+Clock B_in_serial_clk
+0.515884 source latency _29601_/CLK ^
+-0.493462 target latency _26647_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.122422 setup skew
+
+Clock clk
+0.985050 source latency _27986_/CLK ^
+-0.787773 target latency _28007_/CLK ^
+0.100000 clock uncertainty
+0.000000 CRPR
+--------------
+0.297276 setup skew
+

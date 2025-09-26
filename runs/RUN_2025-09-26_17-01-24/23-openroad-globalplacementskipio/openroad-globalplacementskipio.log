@@ -1,0 +1,98 @@
+Reading OpenROAD database at '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/20-openroad-generatepdn/Systolic4x4_serial_io.odb'…
+Reading library file at '/home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+Reading design constraints file at 'constraints.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
++ global_placement -density 0.618478 -skip_io -pad_right 0 -pad_left 0 -init_wirelength_coef 0.25
+[INFO GPL-0002] DBU: 1000
+[INFO GPL-0003] SiteSize: (  0.460  2.720 ) um
+[INFO GPL-0004] CoreBBox: (  5.520 10.880 ) ( 667.000 671.840 ) um
+[INFO GPL-0006] NumInstances:             23331
+[INFO GPL-0007] NumPlaceInstances:        16598
+[INFO GPL-0008] NumFixedInstances:         6733
+[INFO GPL-0009] NumDummyInstances:            0
+[INFO GPL-0010] NumNets:                  16607
+[INFO GPL-0011] NumPins:                  63563
+[INFO GPL-0012] DieBBox:  (  0.000  0.000 ) ( 672.655 683.375 ) um
+[INFO GPL-0013] CoreBBox: (  5.520 10.880 ) ( 667.000 671.840 ) um
+[INFO GPL-0016] CoreArea:            437211.821 um^2
+[INFO GPL-0017] NonPlaceInstsArea:     9640.496 um^2
+[INFO GPL-0018] PlaceInstsArea:      218868.662 um^2
+[INFO GPL-0019] Util:                    51.189 %
+[INFO GPL-0020] StdInstsArea:        218868.662 um^2
+[INFO GPL-0021] MacroInstsArea:           0.000 um^2
+[INFO GPL-0031] FillerInit:NumGCells:     20133
+[INFO GPL-0032] FillerInit:NumGNets:      16607
+[INFO GPL-0033] FillerInit:NumGPins:      63563
+[INFO GPL-0023] TargetDensity:            0.618
+[INFO GPL-0024] AvrgPlaceInstArea:       13.186 um^2
+[INFO GPL-0025] IdealBinArea:            21.321 um^2
+[INFO GPL-0026] IdealBinCnt:              20506
+[INFO GPL-0027] TotalBinArea:        437211.821 um^2
+[INFO GPL-0028] BinCnt:       128    128
+[INFO GPL-0029] BinSize: (  5.168  5.164 )
+[INFO GPL-0030] NumBins: 16384
+[NesterovSolve] Iter:    1 overflow: 0.999 HPWL: 50695137
+[NesterovSolve] Iter:   10 overflow: 0.999 HPWL: 39236154
+[NesterovSolve] Iter:   20 overflow: 0.999 HPWL: 38836536
+[NesterovSolve] Iter:   30 overflow: 0.999 HPWL: 38635741
+[NesterovSolve] Iter:   40 overflow: 0.999 HPWL: 38496643
+[NesterovSolve] Iter:   50 overflow: 0.999 HPWL: 38411580
+[NesterovSolve] Iter:   60 overflow: 0.999 HPWL: 38350120
+[NesterovSolve] Iter:   70 overflow: 0.999 HPWL: 38288033
+[NesterovSolve] Iter:   80 overflow: 0.999 HPWL: 38223280
+[NesterovSolve] Iter:   90 overflow: 0.998 HPWL: 38171038
+[NesterovSolve] Iter:  100 overflow: 0.998 HPWL: 38189948
+[NesterovSolve] Iter:  110 overflow: 0.998 HPWL: 38391956
+[NesterovSolve] Iter:  120 overflow: 0.997 HPWL: 39012790
+[NesterovSolve] Iter:  130 overflow: 0.996 HPWL: 40389615
+[NesterovSolve] Iter:  140 overflow: 0.994 HPWL: 43216543
+[NesterovSolve] Iter:  150 overflow: 0.990 HPWL: 48001744
+[NesterovSolve] Iter:  160 overflow: 0.982 HPWL: 54459432
+[NesterovSolve] Iter:  170 overflow: 0.970 HPWL: 62385523
+[NesterovSolve] Iter:  180 overflow: 0.953 HPWL: 71601783
+[NesterovSolve] Iter:  190 overflow: 0.931 HPWL: 81982138
+[NesterovSolve] Iter:  200 overflow: 0.905 HPWL: 93233531
+[NesterovSolve] Iter:  210 overflow: 0.876 HPWL: 105413118
+[NesterovSolve] Iter:  220 overflow: 0.843 HPWL: 118151272
+[NesterovSolve] Iter:  230 overflow: 0.808 HPWL: 132352648
+[NesterovSolve] Iter:  240 overflow: 0.773 HPWL: 147640107
+[NesterovSolve] Iter:  250 overflow: 0.737 HPWL: 161340611
+[NesterovSolve] Iter:  260 overflow: 0.695 HPWL: 174947398
+[NesterovSolve] Iter:  270 overflow: 0.650 HPWL: 185252637
+[NesterovSolve] Iter:  280 overflow: 0.609 HPWL: 192623453
+[NesterovSolve] Iter:  290 overflow: 0.567 HPWL: 199264457
+[NesterovSolve] Iter:  300 overflow: 0.534 HPWL: 200503249
+[NesterovSolve] Iter:  310 overflow: 0.499 HPWL: 199809943
+[NesterovSolve] Iter:  320 overflow: 0.461 HPWL: 200962196
+[NesterovSolve] Iter:  330 overflow: 0.422 HPWL: 202811277
+[NesterovSolve] Iter:  340 overflow: 0.382 HPWL: 203151488
+[NesterovSolve] Iter:  350 overflow: 0.348 HPWL: 200769017
+[NesterovSolve] Iter:  360 overflow: 0.315 HPWL: 200801409
+[NesterovSolve] Iter:  370 overflow: 0.290 HPWL: 200915805
+[NesterovSolve] Iter:  380 overflow: 0.264 HPWL: 200637451
+[NesterovSolve] Iter:  390 overflow: 0.239 HPWL: 200439596
+[NesterovSolve] Iter:  400 overflow: 0.216 HPWL: 200750495
+[NesterovSolve] Iter:  410 overflow: 0.195 HPWL: 201116126
+[NesterovSolve] Iter:  420 overflow: 0.174 HPWL: 201580581
+[NesterovSolve] Iter:  430 overflow: 0.156 HPWL: 201837834
+[NesterovSolve] Iter:  440 overflow: 0.138 HPWL: 202354552
+[NesterovSolve] Iter:  450 overflow: 0.123 HPWL: 203115711
+[NesterovSolve] Iter:  460 overflow: 0.106 HPWL: 203826505
+[NesterovSolve] Finished with Overflow: 0.099244
+[INFO] Setting RC values…
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+Updating metrics…
+Cell type report:                       Count       Area
+  Fill cell                               486    1824.25
+  Tap cell                               6247    7816.25
+  Buffer                                    1       5.00
+  Inverter                                287    1077.28
+  Sequential cell                        3496   90096.41
+  Multi-Input combinational cell        12814  127689.96
+  Total                                 23331  228509.16
+Writing OpenROAD database to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/23-openroad-globalplacementskipio/Systolic4x4_serial_io.odb'…
+Writing netlist to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/23-openroad-globalplacementskipio/Systolic4x4_serial_io.nl.v'…
+Writing powered netlist to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/23-openroad-globalplacementskipio/Systolic4x4_serial_io.pnl.v'…
+Writing layout to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/23-openroad-globalplacementskipio/Systolic4x4_serial_io.def'…
+Writing timing constraints to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/23-openroad-globalplacementskipio/Systolic4x4_serial_io.sdc'…

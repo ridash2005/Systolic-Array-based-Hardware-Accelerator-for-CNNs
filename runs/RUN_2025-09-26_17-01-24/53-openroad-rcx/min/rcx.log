@@ -1,0 +1,41 @@
+Reading technology LEF file at '/home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__min.tlef'…
+[INFO ODB-0227] LEF file: /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd__min.tlef, created 14 layers, 25 vias
+Reading cell LEF file at '/home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd.lef'…
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_ef_sc_hd.lef, created 4 library cells
+Reading cell LEF file at '/home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef'…
+[WARNING ODB-0220] WARNING (LEFPARS-2008): NOWIREEXTENSIONATPIN statement is obsolete in version 5.6 or later.
+The NOWIREEXTENSIONATPIN statement will be ignored. See file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef at line 2.
+
+[INFO ODB-0227] LEF file: /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef, created 437 library cells
+[INFO ODB-0127] Reading DEF file: /home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/52-odb-cellfrequencytables/Systolic4x4_serial_io.def
+[INFO ODB-0128] Design: Systolic4x4_serial_io
+[INFO ODB-0130]     Created 15 pins.
+[INFO ODB-0131]     Created 52756 components and 264154 component-terminals.
+[INFO ODB-0132]     Created 2 special nets and 198530 connections.
+[INFO ODB-0133]     Created 17218 nets and 65228 connections.
+[INFO ODB-0134] Finished DEF file: /home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/52-odb-cellfrequencytables/Systolic4x4_serial_io.def
+Using RCX ruleset '/home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/rules.openrcx.sky130A.min.calibre'…
+[INFO RCX-0431] Defined process_corner CURRENT_CORNER with ext_model_index 0
+[INFO RCX-0029] Defined extraction corner CURRENT_CORNER
+[INFO RCX-0435] Reading extraction model file /home/hp/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/openlane/rules.openrcx.sky130A.min.calibre ...
+[INFO RCX-0436] RC segment generation Systolic4x4_serial_io (max_merge_res 50.0) ...
+[INFO RCX-0040] Final 78610 rc segments
+[INFO RCX-0439] Coupling Cap extraction Systolic4x4_serial_io ...
+[INFO RCX-0440] Coupling threshhold is 0.1000 fF, coupling capacitance less than 0.1000 fF will be grounded.
+[INFO RCX-0442] 50% of 127104 wires extracted
+[INFO RCX-0442] 100% of 127104 wires extracted
+[INFO RCX-0045] Extract 17218 nets, 95792 rsegs, 95792 caps, 134487 ccs
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+Updating metrics…
+Cell type report:                       Count       Area
+  Fill cell                             28857  224933.23
+  Tap cell                               6247    7816.25
+  Antenna cell                             47     117.61
+  Standard cell                         17605  204344.73
+  Total                                 52756  437211.82
+Writing extracted parasitics to '/home/hp/openlane2/project2/runs/RUN_2025-09-26_17-01-24/53-openroad-rcx/min/Systolic4x4_serial_io.min.spef'…
+[INFO RCX-0443] 17218 nets finished

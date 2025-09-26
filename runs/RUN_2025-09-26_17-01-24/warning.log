@@ -1,0 +1,64 @@
+2 Lint warnings found.
+[GRT-0097] No global routing found for nets.
+[CTS-0041] Net "net8" has 1 sinks. Skipping...
+[CTS-0041] Net "C_out_serial_clk" has 0 sinks. Skipping...
+[GRT-0097] No global routing found for nets.
+[GRT-0097] No global routing found for nets.
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer mcon
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via2
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via3
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+[DRT-0349] LEF58_ENCLOSURE with no CUTCLASS is not supported. Skipping for layer via4
+[DRT-0120] Large net net59 has 132 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net70 has 115 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net71 has 105 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net105 has 143 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net106 has 127 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net107 has 141 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net108 has 134 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net109 has 103 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net110 has 103 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net111 has 105 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net113 has 109 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net131 has 144 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net132 has 121 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net133 has 133 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net134 has 130 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net135 has 130 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net136 has 154 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net137 has 135 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net138 has 147 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net139 has 155 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net140 has 139 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net142 has 148 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net143 has 110 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net144 has 149 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net145 has 157 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net146 has 154 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net147 has 134 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net148 has 148 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net149 has 128 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net150 has 143 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net151 has 117 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net152 has 138 pins which may impact routing performance. Consider optimization.
+[DRT-0120] Large net net153 has 149 pins which may impact routing performance. Consider optimization.
+Threshold for Threshold-surpassing long wires is not set. The checker will be skipped.
+'VSRC_LOC_FILES' was not given a value, which may make the results of IR drop analysis inaccurate. If you are not integrating a top-level chip for manufacture, you may ignore this warning, otherwise, see the documentation for 'VSRC_LOC_FILES'.
+Max Slew violations found in the following corners:
+* max_ff_n40C_1v95
+* max_ss_100C_1v60
+* max_tt_025C_1v80
+* min_ff_n40C_1v95
+* min_ss_100C_1v60
+* min_tt_025C_1v80
+* nom_ff_n40C_1v95
+* nom_ss_100C_1v60
+* nom_tt_025C_1v80
+Max Cap violations found in the following corners:
+* max_ss_100C_1v60
+* nom_ss_100C_1v60
