@@ -1,7 +1,7 @@
-# Systolic-Accelerator
+# Systolic Array based Neural Network Hardware Accelerator
 
 ## Description  
-Systolic-Accelerator is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
+This repository is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
 
 ## Current Project Status  
 The RTL design is fully verified through simulation. The ASIC physical design flow is in progress using the OpenLane 2 open-source ASIC toolchain targeting the SkyWater 130nm PDK and open-source standard cell libraries.
