@@ -1,4 +1,4 @@
-# Systolic Array based Neural Network Hardware Accelerator
+# Systolic Array based Hardware Accelerator for CNNs
 
 ## Description  
 This repository is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
