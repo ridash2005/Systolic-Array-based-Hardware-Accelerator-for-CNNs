@@ -35,42 +35,39 @@ module Systolic4x4_serial_io #(
 
   // Data valid signals from deserializers
   logic A_in_valid, B_in_valid;
-  logic C_out_valid;
+  logic C_busy;
 
-  // Instantiate deserializers for A_in rows and B_in columns
-  // For simplicity, instantiate one deserializer per input stream element.
-  // Here, example shows 1 deserializer per row and column with concatenation; 
-  // for full design, replicate and connect all parallel input bits accordingly.
+  // Bits needed for full matrix tiles
+  localparam A_WIDTH = ROWS * K * AW;
+  localparam B_WIDTH = K * COLS * BW;
+  localparam C_WIDTH = ROWS * COLS * ACCW;
 
-  // Flatten arrays to vectors for simple serialization example:
-  logic [AW*K-1:0] A_in_flat;
-  logic [BW*K-1:0] B_in_flat;
-  logic [ROWS*COLS*ACCW-1:0] C_out_flat;
+  logic [A_WIDTH-1:0] A_in_flat;
+  logic [B_WIDTH-1:0] B_in_flat;
+  logic [C_WIDTH-1:0] C_out_flat;
 
-  // Convert between multidim and flat for deserializer/serializer interfaces
-  genvar i,j;
-
-  // Slice multidim arrays into flat vectors
+  // Unflatten A_in and B_in from deserializer outputs
   generate
-    for (i=0; i<ROWS; i++) begin : flatten_A
-      for (j=0; j<K; j++) begin : flatten_A_bits
-        assign A_in_flat[i* K + j] = A_in[i][j];
+    for (genvar i=0; i<ROWS; i++) begin : unflatten_A
+      for (genvar j=0; j<K; j++) begin : unflatten_A_el
+        assign A_in[i][j] = A_in_flat[(i*K + j)*AW +: AW];
       end
     end
-    for (i=0; i<K; i++) begin : flatten_B
-      for (j=0; j<COLS; j++) begin : flatten_B_bits
-        assign B_in_flat[i* COLS + j] = B_in[i][j];
+    for (genvar i=0; i<K; i++) begin : unflatten_B
+      for (genvar j=0; j<COLS; j++) begin : unflatten_B_el
+        assign B_in[i][j] = B_in_flat[(i*COLS + j)*BW +: BW];
       end
     end
-    for (i=0; i<ROWS; i++) begin : flatten_C
-      for (j=0; j<COLS; j++) begin : flatten_C_bits
+    // Flatten result for serializer
+    for (genvar i=0; i<ROWS; i++) begin : flatten_C
+      for (genvar j=0; j<COLS; j++) begin : flatten_C_el
         assign C_out_flat[(i*COLS + j)*ACCW +: ACCW] = C_out[i][j];
       end
     end
   endgenerate
 
-  // Instantiate deserializers for A_in and B_in
-  deserializer #(.WIDTH(AW*K)) deserializer_A (
+  // Instantiate deserializers
+  deserializer #(.WIDTH(A_WIDTH)) deserializer_A (
     .clk(clk),
     .rst_n(rst_n),
     .serial_clk(A_in_serial_clk),
@@ -80,7 +77,7 @@ module Systolic4x4_serial_io #(
     .data_valid(A_in_valid)
   );
 
-  deserializer #(.WIDTH(BW*K)) deserializer_B (
+  deserializer #(.WIDTH(B_WIDTH)) deserializer_B (
     .clk(clk),
     .rst_n(rst_n),
     .serial_clk(B_in_serial_clk),
@@ -90,38 +87,50 @@ module Systolic4x4_serial_io #(
     .data_valid(B_in_valid)
   );
 
-  // Instantiate systolic 4x4 array with parallel inputs when deserialized data valid
-  // Optionally, include handshake signals or buffering
-  logic start_internal;
+  // Controller for internal start
+  // Trigger calculation when both matrices are loaded and 'start' is high
+  logic systolic_start, systolic_done;
+  logic calculation_running;
 
   always_ff @(posedge clk or negedge rst_n) begin
-    if(!rst_n)
-      start_internal <= 0;
-    else
-      start_internal <= start & A_in_valid & B_in_valid;
+    if(!rst_n) begin
+      systolic_start <= 0;
+      calculation_running <= 0;
+    end else begin
+      if (start && A_in_valid && B_in_valid && !calculation_running) begin
+        systolic_start <= 1;
+        calculation_running <= 1;
+      end else begin
+        systolic_start <= 0;
+        if (systolic_done)
+          calculation_running <= 0;
+      end
+    end
   end
 
-  Systolic4x4 #(.AW(AW), .BW(BW), .ACCW(ACCW)) systolic_inst (
+  Systolic4x4 #(.AW(AW), .BW(BW), .ACCW(ACCW), .ROWS(ROWS), .COLS(COLS), .K(K)) systolic_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .start(start_internal),
+    .start(systolic_start),
     .A_in(A_in),
     .B_in(B_in),
-    .done(done),
+    .done(systolic_done),
     .C_out(C_out)
   );
 
-  // Instantiate serializer for output C_out
-  serializer #(.WIDTH(ROWS*COLS*ACCW)) serializer_C (
+  assign done = systolic_done;
+
+  // Instantiate serializer for output
+  serializer #(.WIDTH(C_WIDTH)) serializer_C (
     .clk(clk),
     .rst_n(rst_n),
     .serial_clk(C_out_serial_clk),
     .parallel_data(C_out_flat),
-    .frame_sync(done),       // start transmitting when systolic array signals done
+    .frame_sync(systolic_done),
     .serial_data(C_out_serial_data),
-    .busy(C_out_valid)
+    .busy(C_busy)
   );
 
-  assign C_out_frame_sync = done;
+  assign C_out_frame_sync = systolic_done;
 
 endmodule

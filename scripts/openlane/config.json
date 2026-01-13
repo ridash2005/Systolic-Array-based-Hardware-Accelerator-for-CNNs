@@ -1,5 +1,5 @@
 {
-  "DESIGN_NAME": "Systolic4x4_serial_io",
+  "DESIGN_NAME": "top_wrapper",
   "DESIGN_DIR": ".",
   "VERILOG_FILES": [
     "src/rtl/top_wrapper.sv",
@@ -18,4 +18,4 @@
   "ERROR_ON_LINTER_TIMING_CONSTRUCTS": false,
   "PNR_SDC_FILE": "scripts/openlane/constraints.sdc",
   "SIGNOFF_SDC_FILE": "scripts/openlane/constraints.sdc"
-}  
+}

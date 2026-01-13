@@ -1,33 +1,39 @@
-module top_wrapper();
+module top_wrapper #(
+  parameter AW = 8,
+  parameter BW = 8,
+  parameter ACCW = 32,
+  parameter ROWS = 4,
+  parameter COLS = 4,
+  parameter K = 4
+)(
+  input  logic clk,
+  input  logic rst_n,
+  input  logic start,
 
-  // Declare signals for main module IO
-  logic clk;
-  logic rst_n;
-  logic start;
-  logic A_in_serial_data;
-  logic A_in_serial_clk;
-  logic A_in_frame_sync;
-  logic B_in_serial_data;
-  logic B_in_serial_clk;
-  logic B_in_frame_sync;
-  logic C_out_serial_data;
-  logic C_out_serial_clk;
-  logic C_out_frame_sync;
-  logic done;
+  // Serialized inputs
+  input  logic A_in_serial_data,
+  input  logic A_in_serial_clk,
+  input  logic A_in_frame_sync,
 
-  // Tie off or connect inputs
-  assign clk = /* assign or generate clock */;
-  assign rst_n = 1'b1;
-  assign start = 1'b0; // or driven signal
-  assign A_in_serial_data = 1'b0;
-  assign A_in_serial_clk = clk;
-  assign A_in_frame_sync = 1'b0;
-  assign B_in_serial_data = 1'b0;
-  assign B_in_serial_clk = clk;
-  assign B_in_frame_sync = 1'b0;
+  input  logic B_in_serial_data,
+  input  logic B_in_serial_clk,
+  input  logic B_in_frame_sync,
 
-  // Instantiate main design
-  Systolic4x4_serial_io uut (
+  // Serialized output
+  output logic C_out_serial_data,
+  output logic C_out_serial_clk,
+  output logic C_out_frame_sync,
+
+  // Control outputs
+  output logic done
+);
+
+  // This wrapper acts as the top-level entity for physical design.
+  // It instantiates the Serial IO variant of the systolic array.
+  
+  Systolic4x4_serial_io #(
+    .AW(AW), .BW(BW), .ACCW(ACCW), .ROWS(ROWS), .COLS(COLS), .K(K)
+  ) core_inst (
     .clk(clk),
     .rst_n(rst_n),
     .start(start),
