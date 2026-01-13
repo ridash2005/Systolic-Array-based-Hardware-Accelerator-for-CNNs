@@ -16,8 +16,6 @@ A high-performance, parameterizable **4x4 Systolic Array Accelerator** implement
 - [Advanced Serialization](#advanced-serialization)
 - [Getting Started](#getting-started)
 - [ASIC Flow & Physical Design](#asic-flow--physical-design)
-- [Why this project is Recruiter-Ready?](#why-this-project-is-recruiter-ready)
-
 ---
 
 ## 🌟 Overview
