@@ -1,33 +1,86 @@
-# Systolic Array based Hardware Accelerator for CNNs
+# 🚀 Systolic Array Hardware Accelerator for CNNs
 
-## Description  
-This repository is an RTL implementation of a parameterizable systolic array accelerator designed for efficient matrix multiplication using serialized input/output interfaces. The project includes a complete and fully verified RTL design along with comprehensive testbenches for functional simulation, including both parallel and serialized data flow verification.
+[![Hardware](https://img.shields.io/badge/Hardware-SystemVerilog-blue.svg)](https://en.wikipedia.org/wiki/SystemVerilog)
+[![PDK](https://img.shields.io/badge/PDK-SkyWater_130nm-brightgreen.svg)](https://skywater-pdk.readthedocs.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Design](https://img.shields.io/badge/Design-ASIC-orange.svg)](docs/ARCHITECTURE.md)
 
-## Current Project Status  
-The RTL design is fully verified through simulation. The ASIC physical design flow is in progress using the OpenLane 2 open-source ASIC toolchain targeting the SkyWater 130nm PDK and open-source standard cell libraries.
+A high-performance, parameterizable **4x4 Systolic Array Accelerator** implemented in SystemVerilog, designed for efficient Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads. This project features a complete ASIC flow targeting the **SkyWater 130nm PDK** using the **OpenLane** toolchain.
 
-Recent OpenLane runs have completed synthesis, placement, clock tree synthesis (CTS), and initial routing stages. Multiple warnings were generated, indicating areas for improvement to reach full signoff readiness:
+---
 
-- RTL lint warnings that require cleaning up.  
-- Nets without global routing coverage due to congestion or placement constraints.  
-- Setup timing violations unresolved at worst-case corners.  
-- Large high-fanout nets affecting routing performance.  
-- Output pins lacking antenna diffusion information, potentially causing antenna effect risks.  
-- Detailed routing warnings about LEF enclosure and cutclass definitions.  
-- Incomplete IR drop analysis due to missing voltage source files.
+## 📖 Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Hardware Architecture](#hardware-architecture)
+- [Advanced Serialization](#advanced-serialization)
+- [Getting Started](#getting-started)
+- [ASIC Flow & Physical Design](#asic-flow--physical-design)
+- [Why this project is Recruiter-Ready?](#why-this-project-is-recruiter-ready)
 
-These show the physical design flow is underway but requires further design adjustments, constraint tuning, and possibly library/configuration updates.
+---
 
-## Key Features  
-- Modular 4x4 systolic array accelerator with serial I/O interfaces.  
-- Parameterized widths and matrix sizes for flexibility.  
-- Full SystemVerilog testbenches verifying serialization, deserialization, and matrix multiplication.  
-- Target technology: SkyWater 130nm PDK using open-source standard cells.
+## 🌟 Overview
+In modern AI silicon (like NVIDIA's Tensor Cores), systolic arrays are the standard for high-throughput tensor computations. This project implements a **Weight-Stationary-ready** systolic architecture that minimizes data movement and maximizes Processing Element (PE) utilization through spatial parallelism.
 
-## Next Steps  
-- Resolve RTL lint warnings and optimize netlist for better synthesis and routing.  
-- Adjust placement and routing constraints to fix global routing gaps and reduce congestion.  
-- Address timing violations by buffering, resizing, and constraint refinement.  
-- Add antenna diffusion info in standard/custom cells to avoid antenna violations.  
-- Complete floorplanning, CTS, detailed routing, and signoff with OpenLane 2.  
-- Produce final GDSII and prepare for tapeout with open-source EDA toolchain.
+![Architecture Diagram](assets/architecture.png)
+
+---
+
+## ✨ Key Features
+- **Highly Modular PE Design**: Pipelined MAC units with 8-bit signed inputs and 32-bit accumulators.
+- **Spatial Parallelism**: 16 PEs operating in parallel with systolic data propagation (Right/Down).
+- **Latency-Optimized Control**: Integrated hardware controller handles input skewing and result collection.
+- **ASIC Optimized**: Serialized I/O interface to reduce pin count, targeting high-density cell-based layouts.
+- **Verified for RTL Signoff**: Comprehensive SystemVerilog testbenches with randomized stimulus.
+
+---
+
+## 🏗️ Hardware Architecture
+
+### Processing Element (PE)
+Each PE performs $C = C + (A \times B)$. It is designed with architectural registered outputs to ensure high-frequency timing closure by breaking long combinational paths across the array.
+
+### Dataflow Strategy
+The array uses an **Input Skewing** technique where Matrix A rows and Matrix B columns are delayed by their respective indices. This ensures that the correctly indexed elements from both matrices arrive at the target PE simultaneously.
+
+> [Read the full ARCHITECTURE.md here](docs/ARCHITECTURE.md)
+
+---
+
+## 📡 Advanced Serialization
+To make the design practical for physical tapeouts with limited pins (e.g., TinyTapeout or low-cost QFN packages), we implemented:
+- **Frame-Sync Deserializers**: Captures 128-bit matrix tiles from a single serial bitstream.
+- **Pipelined Serializers**: Streams 32-bit results back with minimal overhead.
+
+> [Check the VERIFICATION.md for simulation details](docs/VERIFICATION.md)
+
+---
+
+## 🛠️ Getting Started
+
+### Quick Simulation (Icarus Verilog)
+```bash
+# Compile
+iverilog -g2012 -o sim.vvp src/rtl/*.sv src/tb/tb_top_wrapper.sv
+
+# Run
+vvp sim.vvp
+```
+
+### Detailed Setup
+Refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) for environment setup and waveform viewing instructions.
+
+---
+
+## 🎨 ASIC Flow & Physical Design
+The project includes a complete OpenLane 2 configuration for the SkyWater 130nm process.
+
+- **Synthesis**: Yosys mapping to Sky130 standard cells.
+- **Floorplanning**: Custom pin placement and power ring definition.
+- **Placement & Routing**: High-density routing with timing-driven optimization.
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -1,0 +1,16 @@
+# iverilog/Simulation artifacts
+*.vvp
+*.vcd
+*.log
+
+# OpenLane/EDA runs
+runs/
+__pycache__/
+*.tmp
+*.bak
+
+# System/IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp

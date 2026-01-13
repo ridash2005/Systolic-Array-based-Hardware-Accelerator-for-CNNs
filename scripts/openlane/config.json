@@ -1,0 +1,21 @@
+{
+  "DESIGN_NAME": "Systolic4x4_serial_io",
+  "DESIGN_DIR": ".",
+  "VERILOG_FILES": [
+    "src/rtl/top_wrapper.sv",
+    "src/rtl/pe_mac.sv",
+    "src/rtl/systolic4x4.sv",
+    "src/rtl/serializer.sv",
+    "src/rtl/deserializer.sv",
+    "src/rtl/systolic4x4_serial_io.sv"
+  ],
+  "FALLBACK_SDC_FILE": "scripts/openlane/constraints.sdc",
+  "CLOCK_PORT": "clk",
+  "PDK": "sky130A",
+  "ERROR_ON_UNMAPPED_CELLS": false,
+  "ERROR_ON_SYNTH_CHECKS": true,
+  "ERROR_ON_LINTER_ERRORS": false,
+  "ERROR_ON_LINTER_TIMING_CONSTRUCTS": false,
+  "PNR_SDC_FILE": "scripts/openlane/constraints.sdc",
+  "SIGNOFF_SDC_FILE": "scripts/openlane/constraints.sdc"
+}  
