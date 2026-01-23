@@ -30,6 +30,7 @@ In modern AI silicon (like NVIDIA's Tensor Cores), systolic arrays are the stand
 - **Spatial Parallelism**: 16 PEs operating in parallel with systolic data propagation (Right/Down).
 - **Latency-Optimized Control**: Integrated hardware controller handles input skewing and result collection.
 - **ASIC Optimized**: Serialized I/O interface to reduce pin count, targeting high-density cell-based layouts.
+- **Lint Clean & Synthesizable**: RTL design is free of synthesis warnings, with explicit handling of edge cases and unused ports for robust physical implementation.
 - **Verified for RTL Signoff**: Comprehensive SystemVerilog testbenches with randomized stimulus.
 
 ---

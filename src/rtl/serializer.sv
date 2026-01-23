@@ -1,7 +1,6 @@
 module serializer #(
   parameter WIDTH = 32
 ) (
-  input  logic clk,
   input  logic rst_n,
   input  logic serial_clk,
   input  logic [WIDTH-1:0] parallel_data,

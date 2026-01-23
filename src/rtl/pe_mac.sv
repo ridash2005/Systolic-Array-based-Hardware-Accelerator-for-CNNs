@@ -44,13 +44,26 @@ module PE_MAC #(
     end
   end
 
+  // Pipeline registers for load_acc to match data latency (2 stages: input->prod, prod->acc)
+  logic load_acc_d1, load_acc_d2;
+
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      load_acc_d1 <= 0;
+      load_acc_d2 <= 0;
+    end else if (ce) begin
+      load_acc_d1 <= load_acc;
+      load_acc_d2 <= load_acc_d1;
+    end
+  end
+
   // Pipeline stage 2: accumulate
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       acc_reg <= '0;
     end else if (ce) begin
-      if (load_acc) begin
-        acc_reg <= '0;
+      if (load_acc_d2) begin
+        acc_reg <= $signed(prod_reg); // Load first product
       end else begin
         acc_reg <= acc_reg + $signed(prod_reg);
       end

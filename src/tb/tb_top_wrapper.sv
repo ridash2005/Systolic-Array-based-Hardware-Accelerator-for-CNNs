@@ -3,12 +3,12 @@
 module tb_top_wrapper();
 
   // Parameters
-  parameter AW = 8;
-  parameter BW = 8;
-  parameter ACCW = 32;
-  parameter ROWS = 4;
-  parameter COLS = 4;
-  parameter K = 4;
+  parameter AW = 4;
+  parameter BW = 4;
+  parameter ACCW = 16;
+  parameter ROWS = 2;
+  parameter COLS = 2;
+  parameter K = 2;
 
   // Bits for full matrices
   localparam A_WIDTH = ROWS * K * AW;
@@ -76,15 +76,12 @@ module tb_top_wrapper();
     B_in_frame_sync = 0;
     
     // Example values
-    A_tile[0] = '{8'sd1,  8'sd2,  8'sd3,  8'sd4};
-    A_tile[1] = '{8'sd0, -8'sd1,  8'sd2,  8'sd3};
-    A_tile[2] = '{8'sd2,  8'sd2, -8'sd1,  8'sd1};
-    A_tile[3] = '{8'sd4,  8'sd0,  8'sd1, -8'sd2};
+    // Example values for 2x2
+    A_tile[0] = '{4'sd1,  4'sd2};
+    A_tile[1] = '{4'sd0, -4'sd1};
 
-    B_tile[0] = '{8'sd1,  8'sd0, -8'sd1, 8'sd2};
-    B_tile[1] = '{8'sd2,  8'sd1,  8'sd0, 8'sd0};
-    B_tile[2] = '{-8'sd1, 8'sd2,  8'sd1, 8'sd1};
-    B_tile[3] = '{8'sd3, -8'sd1,  8'sd2, 8'sd0};
+    B_tile[0] = '{4'sd1,  4'sd0};
+    B_tile[1] = '{4'sd2,  4'sd1};
 
     // Flatten for easy serialization
     for (int i=0; i<ROWS; i++)

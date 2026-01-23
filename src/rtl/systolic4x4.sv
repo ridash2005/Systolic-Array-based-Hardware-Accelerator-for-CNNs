@@ -1,12 +1,12 @@
 `timescale 1ns/1ps
 
 module Systolic4x4 #(
-  parameter int AW   = 8,
-  parameter int BW   = 8,
-  parameter int ACCW = 32,
-  parameter int ROWS = 4,
-  parameter int COLS = 4,
-  parameter int K    = 4
+  parameter int AW   = 4,
+  parameter int BW   = 4,
+  parameter int ACCW = 16,
+  parameter int ROWS = 2,
+  parameter int COLS = 2,
+  parameter int K    = 2
 )(
   input  logic clk,
   input  logic rst_n,
@@ -19,11 +19,18 @@ module Systolic4x4 #(
   output logic signed [ACCW-1:0] C_out [ROWS-1:0][COLS-1:0]
 );
 
+  // Parameter Validation
+  initial begin
+    if (ACCW < (AW + BW + $clog2(K))) begin
+      $warning("PARAMETER WARNING: ACCW (%0d) may be too small for AW(%0d)+BW(%0d) with K=%0d. Potential overflow!", ACCW, AW, BW, K);
+    end
+  end
+
   // Internal signals
   logic signed [AW-1:0]  A_wires    [ROWS-1:0][COLS-1:0];
   logic signed [BW-1:0]  B_wires    [ROWS-1:0][COLS-1:0];
-  logic signed [AW-1:0]  A_outs     [ROWS-1:0][COLS-1:0];
-  logic signed [BW-1:0]  B_outs     [ROWS-1:0][COLS-1:0];
+  logic signed [AW-1:0]  A_outs     [ROWS-1:0][COLS-2:0];
+  logic signed [BW-1:0]  B_outs     [ROWS-2:0][COLS-1:0];
   logic signed [ACCW-1:0] acc_wires [ROWS-1:0][COLS-1:0];
 
   // Shift registers for input skewing
@@ -32,7 +39,7 @@ module Systolic4x4 #(
   // B_shift[depth][col]
   logic signed [BW-1:0] B_shift [0:K+ROWS-1][COLS-1:0];
 
-  logic ce_local, load_acc;
+  logic ce_local;
   int unsigned cycle_cnt;
   
   typedef enum logic [1:0] {IDLE, LOAD, RUN, FINISH} state_t;
@@ -43,17 +50,55 @@ module Systolic4x4 #(
   generate
     for (r = 0; r < ROWS; r++) begin : rows
       for (c = 0; c < COLS; c++) begin : cols
-        PE_MAC #(.AW(AW), .BW(BW), .ACCW(ACCW)) pe_i (
-          .clk(clk),
-          .rst_n(rst_n),
-          .ce(ce_local),
-          .A_in(A_wires[r][c]),
-          .B_in(B_wires[r][c]),
-          .load_acc(load_acc),
-          .A_out(A_outs[r][c]),
-          .B_out(B_outs[r][c]),
-          .acc_out(acc_wires[r][c])
-        );
+        if (r < ROWS-1 && c < COLS-1) begin : body_pe
+           PE_MAC #(.AW(AW), .BW(BW), .ACCW(ACCW)) pe_i (
+            .clk(clk),
+            .rst_n(rst_n),
+            .ce(ce_local),
+            .A_in(A_wires[r][c]),
+            .B_in(B_wires[r][c]),
+            .load_acc(cycle_cnt == (r + c)),
+            .A_out(A_outs[r][c]),
+            .B_out(B_outs[r][c]),
+            .acc_out(acc_wires[r][c])
+          );
+        end else if (r == ROWS-1 && c < COLS-1) begin : bottom_edge_pe
+           PE_MAC #(.AW(AW), .BW(BW), .ACCW(ACCW)) pe_i (
+            .clk(clk),
+            .rst_n(rst_n),
+            .ce(ce_local),
+            .A_in(A_wires[r][c]),
+            .B_in(B_wires[r][c]),
+            .load_acc(cycle_cnt == (r + c)),
+            .A_out(A_outs[r][c]),
+            .B_out(), // Unused vertical output
+            .acc_out(acc_wires[r][c])
+          );
+        end else if (r < ROWS-1 && c == COLS-1) begin : right_edge_pe
+           PE_MAC #(.AW(AW), .BW(BW), .ACCW(ACCW)) pe_i (
+            .clk(clk),
+            .rst_n(rst_n),
+            .ce(ce_local),
+            .A_in(A_wires[r][c]),
+            .B_in(B_wires[r][c]),
+            .load_acc(cycle_cnt == (r + c)),
+            .A_out(), // Unused horizontal output
+            .B_out(B_outs[r][c]),
+            .acc_out(acc_wires[r][c])
+          );
+        end else begin : corner_pe
+           PE_MAC #(.AW(AW), .BW(BW), .ACCW(ACCW)) pe_i (
+            .clk(clk),
+            .rst_n(rst_n),
+            .ce(ce_local),
+            .A_in(A_wires[r][c]),
+            .B_in(B_wires[r][c]),
+            .load_acc(cycle_cnt == (r + c)),
+            .A_out(), // Unused
+            .B_out(), // Unused
+            .acc_out(acc_wires[r][c])
+          );
+        end
       end
     end
   endgenerate
@@ -75,7 +120,7 @@ module Systolic4x4 #(
     if (!rst_n) begin
       state <= IDLE;
       cycle_cnt <= 0;
-      load_acc <= 0;
+      cycle_cnt <= 0;
       done <= 0;
       
       // Reset shift registers
@@ -112,11 +157,15 @@ module Systolic4x4 #(
         LOAD: begin
           state <= RUN;
           cycle_cnt <= 0;
-          load_acc <= 1; // Clear accumulators for the first cycle of RUN
+          
+          // Clear inputs to avoid garbage
+          for (int i=0; i<ROWS; i++) 
+            for (int j=0; j<K+COLS; j++) A_shift[i][j] <= '0;
+          for (int i=0; i<K+ROWS; i++)
+            for (int j=0; j<COLS; j++) B_shift[i][j] <= '0;
         end
 
         RUN: begin
-          load_acc <= 0;
           cycle_cnt <= cycle_cnt + 1;
 
           // Shift streaming buffers

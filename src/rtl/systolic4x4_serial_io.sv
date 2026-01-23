@@ -1,10 +1,10 @@
 module Systolic4x4_serial_io #(
-  parameter AW = 8,
-  parameter BW = 8,
-  parameter ACCW = 32,
-  parameter ROWS = 4,
-  parameter COLS = 4,
-  parameter K = 4
+  parameter AW = 4,
+  parameter BW = 4,
+  parameter ACCW = 16,
+  parameter ROWS = 2,
+  parameter COLS = 2,
+  parameter K = 2
 )(
   input  logic clk,
   input  logic rst_n,
@@ -35,7 +35,7 @@ module Systolic4x4_serial_io #(
 
   // Data valid signals from deserializers
   logic A_in_valid, B_in_valid;
-  logic C_busy;
+
 
   // Bits needed for full matrix tiles
   localparam A_WIDTH = ROWS * K * AW;
@@ -68,7 +68,7 @@ module Systolic4x4_serial_io #(
 
   // Instantiate deserializers
   deserializer #(.WIDTH(A_WIDTH)) deserializer_A (
-    .clk(clk),
+
     .rst_n(rst_n),
     .serial_clk(A_in_serial_clk),
     .serial_data(A_in_serial_data),
@@ -78,7 +78,7 @@ module Systolic4x4_serial_io #(
   );
 
   deserializer #(.WIDTH(B_WIDTH)) deserializer_B (
-    .clk(clk),
+
     .rst_n(rst_n),
     .serial_clk(B_in_serial_clk),
     .serial_data(B_in_serial_data),
@@ -122,15 +122,16 @@ module Systolic4x4_serial_io #(
 
   // Instantiate serializer for output
   serializer #(.WIDTH(C_WIDTH)) serializer_C (
-    .clk(clk),
+
     .rst_n(rst_n),
     .serial_clk(C_out_serial_clk),
     .parallel_data(C_out_flat),
     .frame_sync(systolic_done),
     .serial_data(C_out_serial_data),
-    .busy(C_busy)
+    .busy()
   );
 
+  assign C_out_serial_clk = clk;
   assign C_out_frame_sync = systolic_done;
 
 endmodule

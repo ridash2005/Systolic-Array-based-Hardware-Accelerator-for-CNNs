@@ -1,7 +1,6 @@
 module deserializer #(
   parameter WIDTH = 32
 ) (
-  input  logic clk,
   input  logic rst_n,
   input  logic serial_clk,
   input  logic serial_data,
