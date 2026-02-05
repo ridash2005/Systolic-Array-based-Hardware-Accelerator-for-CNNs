@@ -20,9 +20,26 @@ module tb_systolic4x4();
   reg signed [AW-1:0] A_tile [0:ROWS-1][0:K-1];
   reg signed [BW-1:0] B_tile [0:K-1][0:COLS-1];
   wire [ROWS*COLS*ACCW-1:0] C_out_flat;
-  logic signed [ACCW-1:0] C_out [0:ROWS-1][0:COLS-1];
+  reg signed [ACCW-1:0] C_out [0:ROWS-1][0:COLS-1];
 
-  always_comb begin
+  // Flatten signals for DUT
+  reg [ROWS*K*AW-1:0] A_flat;
+  reg [K*COLS*BW-1:0] B_flat;
+
+  always @* begin
+    for(int i=0; i<ROWS; i++) begin
+      for(int j=0; j<K; j++) begin
+        A_flat[(i*K+j)*AW +: AW] = A_tile[i][j];
+      end
+    end
+    for(int i=0; i<K; i++) begin
+      for(int j=0; j<COLS; j++) begin
+        B_flat[(i*COLS+j)*BW +: BW] = B_tile[i][j];
+      end
+    end
+  end
+
+  always @* begin
     for(int r=0; r<ROWS; r++) begin
       for(int c=0; c<COLS; c++) begin
         C_out[r][c] = C_out_flat[(r*COLS + c)*ACCW +: ACCW];
@@ -34,8 +51,8 @@ module tb_systolic4x4();
     .clk(clk),
     .rst_n(rst_n),
     .start(start),
-    .A_in(A_tile),
-    .B_in(B_tile),
+    .A_in_flat(A_flat),
+    .B_in_flat(B_flat),
     .done(done),
     .C_out(C_out_flat)
   );

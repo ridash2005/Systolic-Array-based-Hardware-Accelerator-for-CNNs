@@ -6,33 +6,38 @@ module top_wrapper #(
   parameter COLS = 2,
   parameter K = 2
 )(
-  input  logic clk,
-  input  logic rst_n,
-  input  logic start,
+  input  wire clk,
+  input  wire rst_n,
+  input  wire start,
 
   // Serialized inputs
-  input  logic A_in_serial_data,
-  input  logic A_in_serial_clk,
-  input  logic A_in_frame_sync,
+  input  wire A_in_serial_data,
+  input  wire A_in_serial_clk,
+  input  wire A_in_frame_sync,
 
-  input  logic B_in_serial_data,
-  input  logic B_in_serial_clk,
-  input  logic B_in_frame_sync,
+  input  wire B_in_serial_data,
+  input  wire B_in_serial_clk,
+  input  wire B_in_frame_sync,
 
   // Serialized output
-  output logic C_out_serial_data,
-  output logic C_out_serial_clk,
-  output logic C_out_frame_sync,
+  output wire C_out_serial_data,
+  output wire C_out_serial_clk,
+  output wire C_out_frame_sync,
 
   // Control outputs
-  output logic done
+  output wire done
 );
 
   // This wrapper acts as the top-level entity for physical design.
   // It instantiates the Serial IO variant of the systolic array.
   
   Systolic4x4_serial_io #(
-    .AW(AW), .BW(BW), .ACCW(ACCW), .ROWS(ROWS), .COLS(COLS), .K(K)
+    .AW(AW), 
+    .BW(BW), 
+    .ACCW(ACCW), 
+    .ROWS(ROWS), 
+    .COLS(COLS), 
+    .K(K)
   ) core_inst (
     .clk(clk),
     .rst_n(rst_n),

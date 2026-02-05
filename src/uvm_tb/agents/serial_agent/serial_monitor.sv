@@ -29,7 +29,7 @@ class serial_monitor extends uvm_monitor;
   endtask
   
   task collect_transaction();
-    logic [63:0] collected_data = 0;
+    logic [1023:0] collected_data = 0;
     serial_seq_item item = serial_seq_item::type_id::create("item");
     
     // Wait for start of frame

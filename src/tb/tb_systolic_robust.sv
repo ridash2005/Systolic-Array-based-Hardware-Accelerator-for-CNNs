@@ -21,10 +21,26 @@ module tb_systolic_robust();
   wire [ROWS*COLS*ACCW-1:0] C_out_flat;
   logic signed [ACCW-1:0] C_out [0:ROWS-1][0:COLS-1];
 
-  always_comb begin
-    for(int r=0; r<ROWS; r++) begin
-      for(int c=0; c<COLS; c++) begin
-        C_out[r][c] = C_out_flat[(r*COLS + c)*ACCW +: ACCW];
+  // Flatten signals for DUT
+  reg [ROWS*K*AW-1:0] A_flat;
+  reg [K*COLS*BW-1:0] B_flat;
+
+  integer idx_r, idx_c, idx_k;
+  always @* begin
+    for(idx_r=0; idx_r<ROWS; idx_r=idx_r+1) begin
+      for(idx_k=0; idx_k<K; idx_k=idx_k+1) begin
+        A_flat[(idx_r*K+idx_k)*AW +: AW] = A_tile[idx_r][idx_k];
+      end
+    end
+    for(idx_k=0; idx_k<K; idx_k=idx_k+1) begin
+      for(idx_c=0; idx_c<COLS; idx_c=idx_c+1) begin
+        B_flat[(idx_k*COLS+idx_c)*BW +: BW] = B_tile[idx_k][idx_c];
+      end
+    end
+    // Unpack C_out for verification
+    for(idx_r=0; idx_r<ROWS; idx_r=idx_r+1) begin
+      for(idx_c=0; idx_c<COLS; idx_c=idx_c+1) begin
+        C_out[idx_r][idx_c] = C_out_flat[(idx_r*COLS + idx_c)*ACCW +: ACCW];
       end
     end
   end
@@ -33,8 +49,8 @@ module tb_systolic_robust();
     .clk(clk),
     .rst_n(rst_n),
     .start(start),
-    .A_in(A_tile),
-    .B_in(B_tile),
+    .A_in_flat(A_flat),
+    .B_in_flat(B_flat),
     .done(done),
     .C_out(C_out_flat)
   );

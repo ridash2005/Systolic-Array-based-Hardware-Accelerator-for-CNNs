@@ -1,67 +1,90 @@
 # Deep Technical Architecture
 
-This document provides an in-depth look at the hardware implementation of the Systolic Array Accelerator.
+This document provides a comprehensive, in-depth technical analysis of the Systolic Array Hardware Accelerator. It covers configuration parameters, microarchitectural details, gate-level implementation, dataflow strategies, and physical design considerations.
+
+---
 
 ## 1. Configuration Parameters
 
-The architecture is fully generic and defined by the following Verilog parameters.
+The architecture is fully generic and defined by the following SystemVerilog parameters. These parameters allow the design to be scaled from small embedded cores to large data-center class accelerators.
 
 ### Design Guidelines
-1.  **Bit Widths (`AW`, `BW`)**: Since the design uses **signed** arithmetic, you generally need **`AW >= 2`** and **`BW >= 2`** to represent meaningful positive and negative ranges. There is no upper limit in the logic (e.g., 64-bit or 128-bit works), but total area scales linearly.
+1.  **Bit Widths (`AW`, `BW`)**: 
+    -   The design uses **signed** two's complement arithmetic.
+    -   Minimum practical width is 2 bits.
+    -   Common configurations: `AW=8, BW=8` (INT8 Inference), `AW=16, BW=16` (INT16 Training/Inference).
+    -   Area scales roughly linearly with bit width for storage, but quadratically for multipliers.
 2.  **Choosing `K` (Tile Depth)**:
-    -   **Exact Match**: If your application multiplies small matrices (e.g., $2 \times 4$ by $4 \times 2$), set `ROWS=2, K=4, COLS=2` to solve it in one pass.
-    -   **Tiling (Big Matrices)**: For large real-world matrices (e.g., $1024 \times 1024$), your hardware `K` defines the **Tile Depth**.
-        -   *Larger K* (e.g., 16, 32): Improves efficiency by amortizing the pipeline fill/drain time over more calculation cycles. Increases input buffer area.
-        -   *Smaller K* (e.g., 2, 4): Lower latency for results, but higher overhead starting/stopping for large problems.
+    -   **Exact Match**: If your application multiplies small matrices (e.g., $2 \times 4$ by $4 \times 2$), set `ROWS=2, K=4, COLS=2` to solve it in one pass without tiling.
+    -   **Tiling (Big Matrices)**: For large real-world matrices (e.g., $1024 \times 1024$) that exceed on-chip memory, the hardware `K` defines the **Tile Depth**.
+        -   *Larger K* (e.g., 16, 32): Improves arithmetic intensity (ops/byte) by amortizing the pipeline fill/drain time over more calculation cycles. Increases input buffer area.
+        -   *Smaller K* (e.g., 2, 4): Lower latency for first result, but higher overhead starting/stopping for large problems.
 
 | Parameter | Default | Description | Impact on Hardware |
 | :--- | :--- | :--- | :--- |
-| **`AW`** | 8 | **Input A Bit-Width**. The width of each element in Matrix A (signed, default 8-bit). | Increases FF count and Multiplier size. |
-| **`BW`** | 8 | **Input B Bit-Width**. The width of each element in Matrix B (signed, default 8-bit). | Increases FF count and Multiplier size. |
-| **`ACCW`** | 32 | **Accumulator Width**. Valid width for the output Matrix C (default 32-bit). | Must be large enough to prevent overflow: $ACCW \ge AW + BW + \lceil\log_2(K)\rceil$. |
-| **`ROWS`** | 2 | **Array Height**. Number of rows in the PE array (and Matrix A/C). | Linear impact on area. Increases latency by $+ROWS$. |
-| **`COLS`** | 2 | **Array Width**. Number of columns in the PE array (and Matrix B/C). | Linear impact on area. Increases latency by $+COLS$. |
-| **`K`** | 2 | **Dot Product Depth**. The common dimension shared between inputs. If multiplying Matrix A $(M \times K)$ and Matrix B $(K \times N)$, then `K` is the number of columns in A and rows in B. | Increases input loading time, buffer depth, and calculation latency ($+K$). |
+| **`AW`** | 8 | **Input A Bit-Width**. The width of each element in Matrix A (signed, default 8-bit). | Increases Flip-Flop count and Multiplier logic size. |
+| **`BW`** | 8 | **Input B Bit-Width**. The width of each element in Matrix B (signed, default 8-bit). | Increases Flip-Flop count and Multiplier logic size. |
+| **`ACCW`** | 32 | **Accumulator Width**. Valid width for the output Matrix C (default 32-bit). | Must be large enough to prevent overflow. Formula: $ACCW \ge AW + BW + \lceil\log_2(K)\rceil$. |
+| **`ROWS`** | 2 | **Array Height**. Number of rows in the PE array (and Matrix A/C). | Linear impact on area. Increases latency by $+ROWS$ cycles to drain results. |
+| **`COLS`** | 2 | **Array Width**. Number of columns in the PE array (and Matrix B/C). | Linear impact on area. Increases latency by $+COLS$ cycles to fill pipeline. |
+| **`K`** | 2 | **Dot Product Depth**. The common dimension shared between inputs. If multiplying Matrix A $(M \times K)$ and Matrix B $(K \times N)$, then `K` is the number of columns in A and rows in B. | Increases input loading time, skew buffer depth, and total calculation latency ($+K$). |
+
+---
 
 ## 2. Module-Level Deep Dive (Gate Level)
 
-This section breaks down the hardware into simple digital logic components (Registers, Muxes, Gates) for beginners.
+This section breaks down the hardware into simple digital logic components (Registers, Muxes, Gates) to explain the microarchitecture.
 
-### 2.1 Processing Element (`PE_MAC.sv`)
-**What it does**: The brain of the array. It performs $C = C + (A \times B)$.
-*   **Registers (D-Flip-Flops)**:
-    *   `A_reg`, `B_reg`: Hold inputs for one clock cycle to stabilize them (Pipeling Stage 1).
-    *   `prod_reg`: Holds the result of $A \times B$ (Pipelining Stage 2).
-    *   `acc_reg`: The 32-bit memory that stores the running total (Accumulator).
-*   **Combinational Logic**:
-    *   **Multiplier**: An arithmetic unit that takes `A_reg` and `B_reg` and outputs the product.
-    *   **Adder**: Adds the current `prod_reg` to the value currently in `acc_reg`.
-    *   **Mux (Multiplexer)**: Controlled by `load_acc`; chooses whether `acc_reg` gets `(acc + prod)` or starts fresh with just `prod`.
+### 2.1 Processing Element (`pe_mac.sv`)
+**What it does**: The computational heart of the array. It performs the operation $C = C + (A \times B)$.
 
-### 2.2 Deserializer (`deserializer.sv`)
-**What it does**: Converts a single wire stream (Serial) into a wide data bus (Parallel).
-*   **Shift Register**: A long chain of flip-flops connected in a line.
-    *   Every clock cycle, bits shift one step to the right: `reg[N] <= reg[N+1]`.
-    *   The new serial bit enters at the start.
-*   **Counter**: A simple adder that counts $0, 1, 2...$ to track how many bits have arrived.
-*   **Comparator**: Checks `if (counter == WIDTH)`. When true, it tells the system "Data is ready!" (`data_valid=1`).
+*   **Pipeline Stage 0 (Input Capture)**: 
+    *   **Registers**: `A_reg`, `B_reg`.
+    *   **Function**: Captures the input operands `A_in` and `B_in` on the rising edge of `clk` when `ce` (chip enable) is high. This isolates the PE from the long interconnect wires of the previous row/column.
+*   **Pipeline Stage 1 (Multiplication)**: 
+    *   **Logic**: Signed Multiplier ($AW \times BW$).
+    *   **Register**: `prod_reg`.
+    *   **Function**: Computes product and stores it. This breaks the critical path between the multiplier and the adder.
+*   **Pipeline Stage 2 (Accumulation)**: 
+    *   **Logic**: Adder ($ACCW$-bit).
+    *   **Register**: `acc_reg` (The Accumulator).
+    *   **Mux**: Controlled by a delayed version of `load_acc`. 
+        - If `load_acc` is active: `acc_reg <- prod_reg` (Starts a new dot product).
+        - If `load_acc` is inactive: `acc_reg <- acc_reg + prod_reg` (Accumulates).
 
-### 2.3 Internal Skewing Logic (in `Systolic4x4.sv`)
-**What it does**: Delays inputs so they arrive at the diagonal PEs at the right time.
-*   This is purely a set of **Shift Registers**.
-*   **Row 0**: No delay.
-*   **Row 1**: Signals pass through 1 Flip-Flop before reaching the array.
-*   **Row 2**: Signals pass through 2 Flip-Flops.
-*   *Analogy*: Like runners starting a race at different times so they all cross the finish line together.
+### 2.2 Core Array & Interconnect (`systolic4x4.sv`)
+**What it does**: Instantiates the grid of PEs and manages data movement.
+
+*   **Flattened Interface**: The module uses flattened vectors (e.g., `input wire [ROWS*K*AW-1:0] A_in_flat`) instead of unpacked arrays.
+    *   **Why?**: This is crucial for compatibility with open-source synthesis tools like **Yosys**, which have limited support for SystemVerilog unpacked ports in top-level modules.
+    *   **Mechanism**: Internal `generate` loops pack and unpack these flat vectors into 2D arrays for easy indexing within the RTL.
+*   **Skewing Logic (Shift Registers)**: 
+    *   Matrix A rows and Matrix B columns must arrive staggered.
+    *   **Row 0**: No delay.
+    *   **Row 1**: 1 cycle delay (1 Flip-Flop).
+    *   **Row N**: N cycle delays.
+    *   This ensures that $A[0,0]$ and $B[0,0]$ meet at PE(0,0) at $T=0$, while $A[0,1]$ and $B[1,0]$ meet at PE(0,1) and PE(1,0) at $T=1$.
+
+### 2.3 Deserializer (`deserializer.sv`)
+**What it does**: Converts a high-speed single-bit stream into a wide parallel bus.
+
+*   **Shift Register**: A chain of Flip-Flops `WIDTH` bits long.
+    *   On each `serial_clk` edge, data shifts: `shift_reg <= {new_bit, shift_reg[high:1]}`.
+*   **Frame Sync Detection**: Monitors the `frame_sync` input. A high pulse resets the internal bit counter and starts a new capture window.
+*   **Valid Signal**: When the counter reaches `WIDTH`, `data_valid` goes high for one cycle, indicating the parallel output is stable.
 
 ### 2.4 Serializer (`serializer.sv`)
-**What it does**: Converts the wide parallel result back into a single wire stream to leave the chip.
-*   **Mux**: Selects between the `parallel_data` (initial load) or the shifted version of itself.
-*   **Shift Register**: Upon `start`, it loads the huge 32-bit (or larger) number. Then, it shifts right by 1 bit every clock cycle, pushing the Least Significant Bit (LSB) out the `serial_data` wire.
+**What it does**: Converts the wide parallel result bus into a single output stream.
 
-## 3. Pipelined Processing Element (PE)
+*   **Load Mode**: When `frame_sync` is high, the massive parallel result vector (e.g., 512 bits) is parallel-loaded into the shift register.
+*   **Shift Mode**: For the next $N$ cycles, the register shifts out one bit at a time on `serial_data`.
+*   **Busy Flag**: Asserts `busy` while shifting to prevent new data from overwriting the current frame.
 
-The PE is designed for maximum frequency by pipelining the MAC operation into three distinct stages.
+---
+
+## 3. Pipelined Processing Element (PE) Architecture
+
+The PE is designed for **maximum operating frequency** (Fmax) by pipelining the MAC operation into three distinct clock cycles.
 
 ### Internal Microarchitecture
 - **Stage 0 (Input)**: `A_in` and `B_in` are captured into `A_reg` and `B_reg`.
@@ -69,7 +92,8 @@ The PE is designed for maximum frequency by pipelining the MAC operation into th
 - **Stage 2 (Accumulate)**: `prod_reg` is added to the 32-bit `acc_reg`.
   - **Control Pipeline**: The `load_acc` signal is pipelined (`load_acc_d1`, `load_acc_d2`) to align with the data latency. When active, it initializes `acc_reg` with the current `prod_reg` (starting a new sum); otherwise, it accumulates.
 
-This 3-cycle pipeline ensures that the combinational multiplier and adder are separated by registers, allowing the design to meet high timing constraints on the SkyWater 130nm process.
+### Timing Benefits
+This 3-cycle pipeline ensures that the slow combinational multiplier and the carry-chain intensive adder are separated by registers. In physical design terms, this prevents the logic depth from becoming `Multiplier_Depth + Adder_Depth`, keeping it to `max(Multiplier_Depth, Adder_Depth)`, which significantly boosts Fmax on the SkyWater 130nm process.
 
 ```text
 Clock:      T       T+1       T+2       T+3
@@ -77,15 +101,19 @@ Data:     [In]  -> [Reg]  -> [Mult] -> [Acc]
 Control: [Load] -> [D1]   -> [D2]   -> [Clear]
 ```
 
-## 3. Systolic Array Dataflow (Generic NxM)
+---
 
-The array uses a **Weight-Stationary-ready** dataflow, though currently implemented as a standard systolic GEMM.
+## 4. Systolic Array Dataflow Strategy
+
+The array uses a **Weight-Stationary-ready** dataflow, though currently implemented as a standard systolic GEMM (Output Stationary flow where partial sums move, or Input Stationary where inputs move). In this specific design:
+- **Inputs Move**: A flows Left->Right, B flows Top->Bottom.
+- **Weights/Partials Stationary**: Accumulators stay in the PEs until the calculation is finished, then are read out.
 
 ### Connectivity & Edge Handling
 The array is constructed using `generate` blocks that handle boundary conditions explicitly:
 - **Body PEs**: Connected on all sides.
-- **Right Edge PEs**: `A_out` ports are left unconnected (floating) to prevent synthesis warnings about unread bits.
-- **Bottom Edge PEs**: `B_out` ports are left unconnected for the same reason.
+- **Right Edge PEs**: `A_out` ports are typically unconnected (or passed to a monitor).
+- **Bottom Edge PEs**: `B_out` ports are unconnected.
 
 ### Input Skewing Schedule
 To align data correctly, Matrix A and B must enter the array with a staggered delay:
@@ -98,51 +126,86 @@ To align data correctly, Matrix A and B must enter the array with a staggered de
 | **...** | ... | ... | |
 | **T_final**| - | A(3,3), B(3,3) | End of streaming |
 
-### Path Propagation
-- **Rightward**: `A_out[r][c] = A_reg[r][c]` (1 cycle delay per column).
-- **Downward**: `B_out[r][c] = B_reg[r][c]` (1 cycle delay per row).
+### Calculation Latency Formula
+The total execution time in cycles from `start` to `done` is:
+$$Latency = K + ROWS + COLS - 1 + Pipeline\_Depth$$
 
-## 4. Controller FSM
+---
 
-The internal controller (`Systolic4x4.sv`) manages the execution lifecycle through four states:
+## 5. Controller FSM
 
-1.  **IDLE**: Waiting for the `start` signal.
+The internal controller (`Systolic4x4.sv`) manages the execution lifecycle through a Finite State Machine:
+
+1.  **IDLE**: 
+    -   Reset state.
+    -   Waits for `start` signal.
+    -   Clears shift registers and accumulators.
 2.  **LOAD**:
-    - Captures parallel input matrices into internal skewing shift buffers.
-    - **Buffer Clearing**: Explicitly resets the `A_shift` and `B_shift` registers to `0` to prevent "garbage" data from previous runs or uninitialized states from entering the array.
-3.  **RUN**: Streams data through the array and increments `cycle_cnt`.
-    - Resets `load_acc` on the first cycle to clear previous residues.
-4.  **FINISH**: Signals `done` and captures final `acc_reg` values into the top-level `C_out` registers.
+    -   Activated when `start` is detected.
+    -   Captures parallel input matrices into the internal skewing shift buffers.
+    -   **Important**: Explicitly resets the unused portions of logic to avoid X-propagation.
+3.  **RUN**: 
+    -   Enables the `ce` (Chip Enable) signal for PEs.
+    -   Shifts the skew buffers every cycle to feed new data into the array.
+    -   Increments `cycle_cnt`.
+    -   Manages `load_acc` timing to ensure accumulators reset at the start of a dot product.
+4.  **FINISH**:
+    -   Triggered when `cycle_cnt` reaches the target.
+    -   Maps the PE accumulator values (internal 2D array) to the flattened output bus `C_out`.
+    -   Asserts `done` high for one cycle.
+    -   Returns to IDLE.
 
-### Total Latency Formula
-The total execution time in cycles is:
-$Latency = K + ROWS + COLS - 1$
-For the default 2x2 configuration with K=2, the total runtime is $2 + 2 + 2 - 1 = 5$ cycles from the start of the `RUN` state.
+---
 
-## 5. Serialized Interface Protocol
+## 6. ASIC ASIC Implementation & Pinout
 
-The `Systolic4x4_serial_io` wrapper allows the chip to communicate using only a few pins. 
+### Serialized Interface Protocol
+To make the design practical for physical tapeouts with limited pins (like TinyTapeout or QFN packages), we implemented a bit-serial interface wrapper.
 
-### Deserialization Flow
-- **Frame Sync**: High for 1 cycle to signal the start of a matrix bitstream.
-- **Bit Stream**: LSB-first streaming of the entire matrix (e.g., determines by `ROWS*K*AW`).
-- **Valid Flag**: High when the full matrix is assembled and ready for the systolic core.
+1.  **Deserialization**: 
+    -   Incoming Serial Data (A and B) is clocked by high-speed serial clocks (`A_in_serial_clk`, `B_in_serial_clk`).
+    -   Once a full frame (matrix tile) is received, a `valid` signal triggers the core.
+2.  **Core Computation**: 
+    -   Runs on the slower System Clock (`clk`).
+3.  **Serialization**:
+    -   Results are loaded into a shift register and streamed out on `C_out_serial_data` using the System Clock.
 
 ### Pin Map (ASIC/PDK Level)
+
 | Pin Name | Direction | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `clk` | Input | Clock | System Core Clock |
-| `rst_n` | Input | Reset | Active-Low Asynchronous Reset |
-| `start` | Input | Control | Triggers Matrix Multiplication |
-| `A_in_serial_clk` | Input | Clock | Serial Clock for Matrix A Input |
-| `A_in_serial_data`| Input | Data | Serial Bitstream for Matrix A |
-| `B_in_serial_clk` | Input | Clock | Serial Clock for Matrix B Input |
-| `B_in_serial_data`| Input | Data | Serial Bitstream for Matrix B |
-| `C_out_serial_clk`| Output| Clock | Serial Clock for Result Output (Synchronous to `clk`) |
-| `C_out_serial_data`| Output| Data | Serial Bitstream for Result Matrix |
+| `clk` | Input | Clock | **System Core Clock**. Drives the systolic array and control logic. |
+| `rst_n` | Input | Reset | **Active-Low Asynchronous Reset**. Globally resets all FFs. |
+| `start` | Input | Control | Triggers the Matrix Multiplication operation. |
+| `A_in_serial_clk` | Input | Clock | **Serial Clock (A)**. High-speed clock for shifting in Matrix A. |
+| `A_in_serial_data`| Input | Data | Serial Bitstream for Matrix A. |
+| `A_in_frame_sync` | Input | Sync | Pulse indicating start of Matrix A frame. |
+| `B_in_serial_clk` | Input | Clock | **Serial Clock (B)**. High-speed clock for shifting in Matrix B. |
+| `B_in_serial_data`| Input | Data | Serial Bitstream for Matrix B. |
+| `B_in_frame_sync` | Input | Sync | Pulse indicating start of Matrix B frame. |
+| `C_out_serial_clk`| Output| Clock | **Serial Clock (C)**. Copy of `clk`, provided for source-synchronous capture. |
+| `C_out_serial_data`| Output| Data | Serial Bitstream for Result Matrix C. |
+| `C_out_frame_sync`| Output| Sync | Pulse indicating start of Result frame. |
+| `done` | Output | Status | High for 1 cycle when calculation completes. |
 
-## 6. Timing & Physical Constraints
+---
 
-- **Target Frequency**: 100 MHz (SkyWater 130nm).
-- **Congestion Management**: Strategic PE placement is required to manage the high-fanout `rst_n` and `ce` signals. 
-- **Buffer Insertion**: Clock Tree Synthesis (CTS) is critical for balancing the clock across the 16 PEs.
+## 7. Physical Design Constraints
+
+### Clock Domains
+- **Core Domain**: `clk` (Target: 10-20 MHz for low power, up to 100MHz for performance).
+- **IO Domain A**: `A_in_serial_clk` (Target: 50 MHz+).
+- **IO Domain B**: `B_in_serial_clk` (Target: 50 MHz+).
+- *Crossing*: The design handles Domain Crossing via the `valid` handshake signals and double-flop synchronizers (in the silicon wrapper logic, not shown in RTL but implied by separate clock trees).
+
+### Floorplanning
+- **Aspect Ratio**: Square (1.0) recommended for balanced row/column routing.
+- **Power Grid**: Standard robust PDN (Power Delivery Network) with vertical and horizontal stripes on high metal layers (Met4/Met5) to prevent IR drop during dense matrix operations.
+
+### Congestion
+- **Issue**: Systolic arrays have dense local connectivity between PEs.
+- **Mitigation**: The PEs are designed to tile naturally. However, the `rst_n` and `clk` signals have high fanout (connected to every FF). Clock Tree Synthesis (CTS) settings in the ASIC config must effectively buffer these signals.
+
+---
+
+**End of Architecture Document**

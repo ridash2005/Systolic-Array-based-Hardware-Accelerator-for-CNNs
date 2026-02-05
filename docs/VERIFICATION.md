@@ -1,6 +1,6 @@
 # Verification Strategy
 
-Effective hardware acceleration requires rigorous verification. This project uses a comprehensive SystemVerilog-based verification suite.
+Effective hardware acceleration requires rigorous verification. This project uses a comprehensive SystemVerilog-based verification suite, ranging from direct module testing to a complete UVM environment.
 
 ## 1. Parameters (Industry Grade)
 - **Input Width (INT8)**: 8-bit Signed
@@ -32,17 +32,28 @@ iverilog -g2012 -o tb_top.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.s
 vvp tb_top.vvp
 ```
 
-## 4. UVM Framework
+## 4. Robustness Verification
+The `tb_systolic_robust.sv` testbench ensures the architecture scales correctly to non-standard dimensions.
+- **Config**: 9x7 Array with K=11.
+- **Verification**: Checks correct indexing and timing for odd/prime parameter sets.
+- **Flattened Interface**: Verifies the flattened packed-array interface used for ASIC synthesis.
+- **Status**: **✅ PASSED**
+
+```bash
+iverilog -g2012 -o tb_robust.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.sv src/tb/tb_systolic_robust.sv
+vvp tb_robust.vvp
+```
+
+## 5. UVM Framework
 A professional-grade **UVM (Universal Verification Methodology)** environment is integrated in `src/uvm_tb`.
-- **Note**: Requires a UVM-compliant simulator (Vivado, Questa, or Xcelium). **Icarus Verilog does NOT support this UVM testbench** due to language limitations. For free tools, use the `tb_top_iverilog.sv` signoff flow above.
+
+- **Platform**: Requires a UVM-compliant simulator (Vivado, Questa, or Xcelium). **Icarus Verilog does NOT support this UVM testbench**.
 - **Configured For**: 4x4 Array with 128-bit serial payloads.
-- **Command (Generic)**:
-  ```bash
-  vlog +incdir+src/uvm_tb/agents/serial_agent +incdir+src/uvm_tb/env +incdir+src/uvm_tb/test src/rtl/*.sv src/uvm_tb/top/top_tb.sv
-  vsim top_tb -do "run -all"
-  ```
+- **Updates**: The UVM Monitor has been patched to support large vector widths (up to 1024 bits) to handle the 4x4x8 and 4x4x32 frame sizes correctly.
+- **Reference Model**: `scoreboard.sv` implements a bit-accurate SystemVerilog reference model for GEMM.
 
+> For detailed usage, see [src/uvm_tb/UVM_VERIFICATION_GUIDE.md](../src/uvm_tb/UVM_VERIFICATION_GUIDE.md).
 
-## 5. Key Metrics
+## 6. Key Metrics
 - **Functional Correctness**: Verified for zero-mismatch result capture.
 - **Timing Verification**: (Post-synthesis) Validates that the design meets the target clock period on the SkyWater 130nm process.

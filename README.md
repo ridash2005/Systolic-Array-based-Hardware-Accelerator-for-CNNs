@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Design](https://img.shields.io/badge/Design-ASIC-orange.svg)](docs/ARCHITECTURE.md)
 
-A high-performance, parameterizable **Systolic Array Accelerator (Default 8x8)** implemented in SystemVerilog, designed for efficient Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads. This project features a complete ASIC flow targeting the **SkyWater 130nm PDK** using the **OpenLane** toolchain.
+A high-performance, parameterizable **Systolic Array Accelerator (Default 8x8)** implemented in SystemVerilog, designed for efficient Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads. This project features a complete ASIC flow targeting the **SkyWater 130nm PDK** using the **LibreLane** (OpenLane 2) toolchain.
 
 ---
 
@@ -13,9 +13,10 @@ A high-performance, parameterizable **Systolic Array Accelerator (Default 8x8)**
 - [Overview](#overview)
 - [Key Features](#key-features)
 - [Hardware Architecture](#hardware-architecture)
-- [Advanced Serialization](#advanced-serialization)
+- [ASIC Implementation](#asic-implementation)
 - [Getting Started](#getting-started)
-- [ASIC Flow & Physical Design](#asic-flow--physical-design)
+- [Verification](#verification)
+
 ---
 
 ## 🌟 Overview
@@ -28,58 +29,66 @@ In modern AI silicon (like NVIDIA's Tensor Cores), systolic arrays are the stand
 ## ✨ Key Features
 - **Highly Modular PE Design**: Pipelined MAC units with 8-bit signed inputs and 32-bit accumulators (Int8/Int32).
 - **Spatial Parallelism**: 64 PEs (8x8) operating in parallel with systolic data propagation.
-- **Latency-Optimized Control**: Integrated hardware controller handles input skewing and result collection.
 - **ASIC Optimized**: Serialized I/O interface to reduce pin count, targeting high-density cell-based layouts.
-- **Lint Clean & Synthesizable**: RTL design is free of synthesis warnings, with explicit handling of edge cases and unused ports for robust physical implementation.
-- **Verified for RTL Signoff**: Comprehensive SystemVerilog testbenches with randomized stimulus.
+- **Toolchain Compatible**: RTL optimized for Yosys synthesis (flattened interfaces, Verilog-2001 compatibility).
+- **LibreLane Ready**: Complete configuration for the modern LibreLane ASIC flow.
 
 ---
 
 ## 🏗️ Hardware Architecture
 
 ### Processing Element (PE)
-Each PE performs $C = C + (A \times B)$. It is designed with architectural registered outputs to ensure high-frequency timing closure by breaking long combinational paths across the array.
+Each PE performs $C = C + (A \times B)$. It is designed with architectural registered outputs to ensure high-frequency timing closure.
 
 ### Dataflow Strategy
-The array uses an **Input Skewing** technique where Matrix A rows and Matrix B columns are delayed by their respective indices. This ensures that the correctly indexed elements from both matrices arrive at the target PE simultaneously.
+The array uses an **Input Skewing** technique where Matrix A rows and Matrix B columns are delayed by their respective indices.
 
 > [Read the full ARCHITECTURE.md here](docs/ARCHITECTURE.md)
 
 ---
 
-## 📡 Advanced Serialization
-To make the design practical for physical tapeouts with limited pins (e.g., TinyTapeout or low-cost QFN packages), we implemented:
-- **Frame-Sync Deserializers**: Captures 128-bit matrix tiles from a single serial bitstream.
-- **Pipelined Serializers**: Streams 32-bit results back with minimal overhead.
+## 🎨 ASIC Implementation
 
-> [Check the VERIFICATION.md for simulation details](docs/VERIFICATION.md)
+The project includes a production-grade **LibreLane** configuration for the SkyWater 130nm process.
+
+**Location:** `scripts/librelane/`
+
+### Quick Start (Docker)
+```bash
+# Run the full ASIC flow
+librelane scripts/librelane/config.json --design-dir . --dockerized
+```
+
+> [Read the full LIBRELANE_GUIDE.md here](docs/LIBRELANE_GUIDE.md)
 
 ---
 
 ## 🛠️ Getting Started
 
-### Quick Simulation (Icarus Verilog)
+### Prerequisites
+- **Icarus Verilog**: For simulation.
+- **GTKWave**: For waveform viewing.
+- **Docker**: For running the ASIC flow.
+
+### Quick Simulation
 ```bash
-# Compile with SystemVerilog 2012 support
+# Compile
 iverilog -g2012 -o tb_sys.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.sv src/tb/tb_systolic4x4.sv
 
-# Run simulation
+# Run
 vvp tb_sys.vvp
 ```
 
-### Advanced UVM Verification
-For enterprise-grade verification, a complete **UVM (Universal Verification Methodology)** environment is provided in `src/uvm_tb`. 
-
-Refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) for environment setup and waveform viewing instructions.
-
 ---
 
-## 🎨 ASIC Flow & Physical Design
-The project includes a complete OpenLane 2 configuration for the SkyWater 130nm process.
+## ✅ Verification
 
-- **Synthesis**: Yosys mapping to Sky130 standard cells.
-- **Floorplanning**: Custom pin placement and power ring definition.
-- **Placement & Routing**: High-density routing with timing-driven optimization.
+The design is verified using a self-checking testbench that compares hardware results against a golden behavioral model.
+
+- **Block Level**: `src/tb/tb_systolic4x4.sv` checks the core array logic.
+- **Top Level**: `src/tb/tb_top_iverilog.sv` checks the serialized ASIC wrapper.
+
+> [Read the full VERIFICATION.md here](docs/VERIFICATION.md)
 
 ---
 
