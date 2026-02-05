@@ -1,42 +1,40 @@
 module serializer #(
   parameter WIDTH = 32
 ) (
-  input  logic rst_n,
-  input  logic serial_clk,
-  input  logic [WIDTH-1:0] parallel_data,
-  input  logic frame_sync,
-  output logic serial_data,
-  output logic busy
+  input    rst_n,
+  input    serial_clk,
+  input    [WIDTH-1:0] parallel_data,
+  input    frame_sync,
+  output reg serial_data,
+  output reg busy
 );
 
-  logic [$clog2(WIDTH):0] bit_idx;
-  logic [WIDTH-1:0] shift_reg;
-  logic transmitting;
+  reg [WIDTH-1:0] shift_reg;
+  integer bit_cnt;
 
-  always_ff @(posedge serial_clk or negedge rst_n) begin
+  always @(posedge serial_clk or negedge rst_n) begin
     if (!rst_n) begin
-      bit_idx <= 0;
+      serial_data <= 1'b0;
+      busy <= 1'b0;
       shift_reg <= 0;
-      serial_data <= 0;
-      busy <= 0;
-      transmitting <= 0;
+      bit_cnt <= 0;
     end else begin
-      if (frame_sync && !transmitting) begin
-        shift_reg <= parallel_data;
-        bit_idx <= 0;
-        busy <= 1;
-        transmitting <= 1;
+      if (frame_sync && !busy) begin
         serial_data <= parallel_data[0];
-      end else if (transmitting) begin
-        bit_idx <= bit_idx + 1;
-        shift_reg <= shift_reg >> 1;
-        serial_data <= shift_reg[1]; // next bit
-        if (bit_idx == WIDTH - 1) begin
-          busy <= 0;
-          transmitting <= 0;
+        shift_reg   <= {1'b0, parallel_data[WIDTH-1:1]};
+        bit_cnt     <= 1;
+        busy        <= 1'b1;
+      end else if (busy) begin
+        serial_data <= shift_reg[0];
+        shift_reg   <= {1'b0, shift_reg[WIDTH-1:1]};
+        if (bit_cnt == WIDTH - 1) begin
+          busy <= 1'b0;
+        end else begin
+          bit_cnt <= bit_cnt + 1;
         end
+      end else begin
+        serial_data <= 1'b0;
       end
     end
   end
-
 endmodule
