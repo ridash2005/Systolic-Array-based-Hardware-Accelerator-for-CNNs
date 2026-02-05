@@ -1,7 +1,7 @@
 module top_wrapper #(
-  parameter AW = 4,
-  parameter BW = 4,
-  parameter ACCW = 16,
+  parameter AW = 8,
+  parameter BW = 8,
+  parameter ACCW = 32,
   parameter ROWS = 2,
   parameter COLS = 2,
   parameter K = 2

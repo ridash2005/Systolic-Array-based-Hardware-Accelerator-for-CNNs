@@ -18,12 +18,12 @@ class scoreboard extends uvm_scoreboard;
   serial_seq_item c_q[$];
 
   // Parameters
-  int AW = 4;
-  int BW = 4;
-  int ACCW = 16;
-  int ROWS = 2;
-  int COLS = 2;
-  int K = 2;
+  int AW = 8;
+  int BW = 8;
+  int ACCW = 32;
+  int ROWS = 4;
+  int COLS = 4;
+  int K = 4;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);

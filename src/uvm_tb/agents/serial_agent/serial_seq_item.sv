@@ -5,7 +5,7 @@
 
 class serial_seq_item extends uvm_sequence_item;
   
-  rand logic [63:0] data;
+  rand logic [1023:0] data;
   rand int delay;
   int width;
 

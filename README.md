@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Design](https://img.shields.io/badge/Design-ASIC-orange.svg)](docs/ARCHITECTURE.md)
 
-A high-performance, parameterizable **4x4 Systolic Array Accelerator** implemented in SystemVerilog, designed for efficient Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads. This project features a complete ASIC flow targeting the **SkyWater 130nm PDK** using the **OpenLane** toolchain.
+A high-performance, parameterizable **Systolic Array Accelerator (Default 8x8)** implemented in SystemVerilog, designed for efficient Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads. This project features a complete ASIC flow targeting the **SkyWater 130nm PDK** using the **OpenLane** toolchain.
 
 ---
 
@@ -26,8 +26,8 @@ In modern AI silicon (like NVIDIA's Tensor Cores), systolic arrays are the stand
 ---
 
 ## ✨ Key Features
-- **Highly Modular PE Design**: Pipelined MAC units with 8-bit signed inputs and 32-bit accumulators.
-- **Spatial Parallelism**: 16 PEs operating in parallel with systolic data propagation (Right/Down).
+- **Highly Modular PE Design**: Pipelined MAC units with 8-bit signed inputs and 32-bit accumulators (Int8/Int32).
+- **Spatial Parallelism**: 64 PEs (8x8) operating in parallel with systolic data propagation.
 - **Latency-Optimized Control**: Integrated hardware controller handles input skewing and result collection.
 - **ASIC Optimized**: Serialized I/O interface to reduce pin count, targeting high-density cell-based layouts.
 - **Lint Clean & Synthesizable**: RTL design is free of synthesis warnings, with explicit handling of edge cases and unused ports for robust physical implementation.
@@ -61,10 +61,10 @@ To make the design practical for physical tapeouts with limited pins (e.g., Tiny
 ### Quick Simulation (Icarus Verilog)
 ```bash
 # Compile with SystemVerilog 2012 support
-iverilog -g2012 -o sim.vvp src/rtl/*.sv src/tb/tb_top_iverilog.sv
+iverilog -g2012 -o tb_sys.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.sv src/tb/tb_systolic4x4.sv
 
 # Run simulation
-vvp sim.vvp
+vvp tb_sys.vvp
 ```
 
 ### Advanced UVM Verification

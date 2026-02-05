@@ -93,8 +93,8 @@ The scoreboard implements a behavioral matrix multiplication model.
 3. It computes `C = A * B` using SystemVerilog's high-level arithmetic.
 4. When a result arrives from 'C', it compares it against the expected calculation.
 
-**Sign Handling**: The design uses 4-bit signed integers. 
-- Example: `1111` is -1. `1000` is -8. 
+**Sign Handling**: The design uses 8-bit signed integers. 
+- Example: `0xFF` is -1. `0xF8` is -8. 
 - The scoreboard correctly identifies sign bits and performs sign-extension before multiplication.
 
 ---

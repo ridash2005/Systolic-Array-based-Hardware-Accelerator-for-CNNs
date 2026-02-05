@@ -1,16 +1,15 @@
 `timescale 1ns/1ps
-module tb_systolic4x4();
+module tb_systolic_robust();
 
-  // Industry-grade parameters
-  // INT8 Quantization: 8-bit weights and activations
+  // Robustness Parameters: Uneven dimensions
   parameter AW = 8;
   parameter BW = 8;
-  // 32-bit Accumulator to prevent overflow during MAC operations
   parameter ACCW = 32;
-  // Array Size: 8x8 (Typical small block for inference engines, scalable to 16x16 or 32x32)
-  parameter ROWS = 8;
-  parameter COLS = 8;
-  parameter K = 8; // Inner dimension
+  
+  // Prime number dimensions to test indexing/boundary logic stress
+  parameter ROWS = 9;
+  parameter COLS = 7;
+  parameter K = 11;
 
   reg clk;
   reg rst_n;
@@ -67,8 +66,6 @@ module tb_systolic4x4();
     errors = 0;
     
     // Initialize matrices with random values
-    // Using relatively small values to avoid overflow if ACCW was small, 
-    // but with 32-bit ACCW and 8-bit inputs, overflow is impossible for K=8.
     for (i=0; i<ROWS; i=i+1) begin
       for (j=0; j<K; j=j+1) begin
          A_tile[i][j] = $random % 128; // Random INT8
@@ -86,7 +83,7 @@ module tb_systolic4x4();
 
     #20;
 
-    $display("Test Configuration:");
+    $display("Test Configuration: Robustness Check");
     $display("  Array Size: %0dx%0d", ROWS, COLS);
     $display("  Inner Dim (K): %0d", K);
     $display("  Bit Widths: A=%0d, B=%0d, ACC=%0d", AW, BW, ACCW);
@@ -99,10 +96,8 @@ module tb_systolic4x4();
     while (!done) begin
       @(posedge clk);
       cyc = cyc + 1;
-      if (cyc % 50 == 0) $display("Cycle %0d...", cyc);
-
-      if (cyc > 2000) begin
-        $display("Timeout - test did not finish in 2000 cycles.");
+      if (cyc > 5000) begin
+        $display("Timeout - test did not finish in 5000 cycles.");
         $finish;
       end
     end
@@ -121,8 +116,8 @@ module tb_systolic4x4();
       end
     end
 
-    if (errors == 0) $display("TEST PASSED: All %0d elements matched golden.", ROWS*COLS);
-    else $display("TEST FAILED: %0d mismatches.", errors);
+    if (errors == 0) $display("ROBUSTNESS TEST PASSED: All %0d elements matched golden.", ROWS*COLS);
+    else $display("ROBUSTNESS TEST FAILED: %0d mismatches.", errors);
 
     $finish;
   end

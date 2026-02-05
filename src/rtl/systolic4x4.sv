@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 
 module Systolic4x4 #(
-  parameter int AW   = 4,
-  parameter int BW   = 4,
-  parameter int ACCW = 16,
+  parameter int AW   = 8,
+  parameter int BW   = 8,
+  parameter int ACCW = 32,
   parameter int ROWS = 2,
   parameter int COLS = 2,
   parameter int K    = 2
@@ -34,8 +34,8 @@ module Systolic4x4 #(
   logic signed [ACCW-1:0] acc_wires [ROWS-1:0][COLS-1:0];
 
   // Shift registers for input skewing
-  logic signed [AW-1:0] A_shift [ROWS-1:0][0:K+COLS-1];
-  logic signed [BW-1:0] B_shift [0:K+ROWS-1][COLS-1:0];
+  logic signed [AW-1:0] A_shift [ROWS-1:0][0:K+ROWS-1];
+  logic signed [BW-1:0] B_shift [0:K+COLS-1][COLS-1:0];
 
   logic ce_local;
   reg [31:0] cycle_cnt;
@@ -129,8 +129,8 @@ module Systolic4x4 #(
       C_out <= '0;
       // Reset shift registers
       for (int i=0; i<ROWS; i++) 
-        for (int j=0; j<K+COLS; j++) A_shift[i][j] <= '0;
-      for (int i=0; i<K+ROWS; i++)
+        for (int j=0; j<K+ROWS; j++) A_shift[i][j] <= '0;
+      for (int i=0; i<K+COLS; i++)
         for (int j=0; j<COLS; j++) B_shift[i][j] <= '0;
     end else begin
       case (state)
@@ -159,14 +159,14 @@ module Systolic4x4 #(
         RUN: begin
           cycle_cnt <= cycle_cnt + 1;
           for (int rr=0; rr<ROWS; rr++) begin
-            for (int s=0; s<K+COLS-1; s++)
+            for (int s=0; s<K+ROWS-1; s++)
               A_shift[rr][s] <= A_shift[rr][s+1];
-            A_shift[rr][K+COLS-1] <= '0;
+            A_shift[rr][K+ROWS-1] <= '0;
           end
           for (int cc=0; cc<COLS; cc++) begin
-            for (int s=0; s<K+ROWS-1; s++)
+            for (int s=0; s<K+COLS-1; s++)
               B_shift[s][cc] <= B_shift[s+1][cc];
-            B_shift[K+ROWS-1][cc] <= '0;
+            B_shift[K+COLS-1][cc] <= '0;
           end
           if (cycle_cnt >= (K + ROWS + COLS - 1)) begin
             state <= FINISH;

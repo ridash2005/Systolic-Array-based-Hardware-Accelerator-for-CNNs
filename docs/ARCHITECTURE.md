@@ -16,9 +16,9 @@ The architecture is fully generic and defined by the following Verilog parameter
 
 | Parameter | Default | Description | Impact on Hardware |
 | :--- | :--- | :--- | :--- |
-| **`AW`** | 4 | **Input A Bit-Width**. The width of each element in Matrix A (signed). | Increases FF count and Multiplier size. |
-| **`BW`** | 4 | **Input B Bit-Width**. The width of each element in Matrix B (signed). | Increases FF count and Multiplier size. |
-| **`ACCW`** | 16 | **Accumulator Width**. Valid width for the output Matrix C. | Must be large enough to prevent overflow: $ACCW \ge AW + BW + \lceil\log_2(K)\rceil$. |
+| **`AW`** | 8 | **Input A Bit-Width**. The width of each element in Matrix A (signed, default 8-bit). | Increases FF count and Multiplier size. |
+| **`BW`** | 8 | **Input B Bit-Width**. The width of each element in Matrix B (signed, default 8-bit). | Increases FF count and Multiplier size. |
+| **`ACCW`** | 32 | **Accumulator Width**. Valid width for the output Matrix C (default 32-bit). | Must be large enough to prevent overflow: $ACCW \ge AW + BW + \lceil\log_2(K)\rceil$. |
 | **`ROWS`** | 2 | **Array Height**. Number of rows in the PE array (and Matrix A/C). | Linear impact on area. Increases latency by $+ROWS$. |
 | **`COLS`** | 2 | **Array Width**. Number of columns in the PE array (and Matrix B/C). | Linear impact on area. Increases latency by $+COLS$. |
 | **`K`** | 2 | **Dot Product Depth**. The common dimension shared between inputs. If multiplying Matrix A $(M \times K)$ and Matrix B $(K \times N)$, then `K` is the number of columns in A and rows in B. | Increases input loading time, buffer depth, and calculation latency ($+K$). |

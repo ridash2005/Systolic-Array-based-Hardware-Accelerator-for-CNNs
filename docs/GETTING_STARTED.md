@@ -19,11 +19,11 @@ The testbenches are located in `src/tb/`. To run the top-level simulation:
 
 1. Compile the design and testbench:
    ```bash
-   iverilog -g2012 -o sim.vvp src/rtl/*.sv src/tb/tb_top_wrapper.sv
+   iverilog -g2012 -o tb_sys.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.sv src/tb/tb_systolic4x4.sv
    ```
 2. Run the simulation:
    ```bash
-   vvp sim.vvp
+   vvp tb_sys.vvp
    ```
 3. Open the waveform:
    ```bash

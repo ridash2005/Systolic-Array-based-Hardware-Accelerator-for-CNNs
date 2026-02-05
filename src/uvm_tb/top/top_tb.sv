@@ -37,7 +37,7 @@ module top_tb;
 
   // DUT Instantiation
   top_wrapper #(
-    .AW(4), .BW(4), .ACCW(16), .ROWS(2), .COLS(2), .K(2)
+    .AW(8), .BW(8), .ACCW(32), .ROWS(4), .COLS(4), .K(4)
   ) dut (
     .clk(clk),
     .rst_n(rst_n),
