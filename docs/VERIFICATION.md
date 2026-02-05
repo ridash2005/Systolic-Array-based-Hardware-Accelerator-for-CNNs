@@ -13,13 +13,20 @@ The `tb_systolic4x4.sv` testbench verifies the core array:
 - Models the expected output in SystemVerilog.
 - Compares RTL results against the golden model.
 
-## 3. Top-Level Serialized Flow
-The `tb_top_wrapper.sv` mimics a real-world system where data is streamed into the chip:
-- Streams Matrix A and Matrix B bits.
-- Monitors the `done` signal.
-- Reads back the serialized results.
-- Validates the end-to-end serialized GEMM operation.
+## 3. Top-Level Serialized Flow (Signoff Verification)
+The `tb_top_iverilog.sv` provides a definitive end-to-end check for Icarus Verilog:
+- **Streaming I/O**: Streams 4-bit signed matrix elements via serial interfaces.
+- **Cycle-Accurate**: Fixed synchronization race conditions using precise delays.
+- **Automated Checking**: Captures the serial result stream, reconstructs the 64-bit matrix, and compares against GEMM reference values.
+- **Status**: **✅ PASSED** (Validated for 2x2 tiles with signed accumulation).
 
-## 4. Key Metrics
-- **Functional Coverage**: Ensures all matrix indices and typical value ranges are exercised.
+## 4. UVM Framework
+A professional-grade **UVM (Universal Verification Methodology)** environment is integrated in `src/uvm_tb`:
+- **VIPs**: Custom Serial Protocol Agents with Monitor/Driver/Sequencer.
+- **Scoreboard**: Implements the "Oracle" reference model in high-level SV.
+- **Randomization**: Constrained-random testing for edge-case coverage.
+- **Architectural Status**: Fixed and synchronized for cross-simulator compatibility.
+
+## 5. Key Metrics
+- **Functional Correctness**: Verified for zero-mismatch result capture.
 - **Timing Verification**: (Post-synthesis) Validates that the design meets the target clock period on the SkyWater 130nm process.

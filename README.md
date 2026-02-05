@@ -60,14 +60,16 @@ To make the design practical for physical tapeouts with limited pins (e.g., Tiny
 
 ### Quick Simulation (Icarus Verilog)
 ```bash
-# Compile
-iverilog -g2012 -o sim.vvp src/rtl/*.sv src/tb/tb_top_wrapper.sv
+# Compile with SystemVerilog 2012 support
+iverilog -g2012 -o sim.vvp src/rtl/*.sv src/tb/tb_top_iverilog.sv
 
-# Run
+# Run simulation
 vvp sim.vvp
 ```
 
-### Detailed Setup
+### Advanced UVM Verification
+For enterprise-grade verification, a complete **UVM (Universal Verification Methodology)** environment is provided in `src/uvm_tb`. 
+
 Refer to [GETTING_STARTED.md](docs/GETTING_STARTED.md) for environment setup and waveform viewing instructions.
 
 ---
