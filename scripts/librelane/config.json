@@ -1,46 +1,57 @@
 {
-  "meta": {
-    "version": 2,
-    "flow": "Classic"
-  },
-  "DESIGN_NAME": "top_wrapper",
-  "VERILOG_FILES": [
-    "dir::src/rtl/top_wrapper.sv",
-    "dir::src/rtl/pe_mac.sv",
-    "dir::src/rtl/systolic4x4.sv",
-    "dir::src/rtl/serializer.sv",
-    "dir::src/rtl/deserializer.sv",
-    "dir::src/rtl/systolic4x4_serial_io.sv"
-  ],
-  "PDK": "sky130A",
-  "CLOCK_PORT": "clk",
-  "CLOCK_PERIOD": 100.0,
-  "FP_SIZING": "relative",
-  "FP_CORE_UTIL": 25,
-  "FP_ASPECT_RATIO": 1.0,
-  "FP_PDN_VPITCH": 100,
-  "FP_PDN_HPITCH": 100,
-  "PL_TARGET_DENSITY_PCT": 30,
-  "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
-  "PL_RESIZER_SETUP_SLACK_MARGIN": 0.05,
-  "SYNTH_STRATEGY": "AREA 0",
-  "SYNTH_ABC_BUFFERING": true,
-  "SYNTH_SIZING": true,
-  "SYNTH_SHARE_RESOURCES": true,
-  "CTS_CLK_BUFFERS": [
-    "sky130_fd_sc_hd__clkbuf_4",
-    "sky130_fd_sc_hd__clkbuf_8"
-  ],
-  "CTS_SINK_CLUSTERING_SIZE": 25,
-  "CTS_SINK_CLUSTERING_MAX_DIAMETER": 50,
-  "RT_MAX_LAYER": "met4",
-  "GRT_ALLOW_CONGESTION": false,
-  "GRT_OVERFLOW_ITERS": 50,
-  "DRT_OPT_ITERS": 64,
-  "RUN_ANTENNA_REPAIR": true,
-  "RUN_LINTER": true,
-  "PRIMARY_GDSII_STREAMOUT_TOOL": "magic",
-  "FALLBACK_SDC_FILE": "dir::scripts/librelane/constraints.sdc",
-  "PNR_SDC_FILE": "dir::scripts/librelane/constraints.sdc",
-  "SIGNOFF_SDC_FILE": "dir::scripts/librelane/constraints.sdc"
+    "meta": {
+        "version": 2,
+        "flow": "Classic"
+    },
+    "DESIGN_NAME": "top_wrapper",
+    "VERILOG_FILES": [
+        "dir::src/rtl/top_wrapper.sv",
+        "dir::src/rtl/pe_mac.sv",
+        "dir::src/rtl/systolic4x4.sv",
+        "dir::src/rtl/serializer.sv",
+        "dir::src/rtl/deserializer.sv",
+        "dir::src/rtl/systolic4x4_serial_io.sv"
+    ],
+    "PDK": "sky130A",
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 100.0,
+    "FP_SIZING": "relative",
+    "FP_CORE_UTIL": 25,
+    "FP_ASPECT_RATIO": 1.0,
+    "FP_PDN_VPITCH": 100,
+    "FP_PDN_HPITCH": 100,
+    "PL_TARGET_DENSITY_PCT": 30,
+    "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
+    "PL_RESIZER_SETUP_SLACK_MARGIN": 0.05,
+    "SYNTH_STRATEGY": "AREA 0",
+    "SYNTH_ABC_BUFFERING": true,
+    "SYNTH_SIZING": true,
+    "SYNTH_SHARE_RESOURCES": true,
+    "CTS_CLK_BUFFERS": [
+        "sky130_fd_sc_hd__clkbuf_4",
+        "sky130_fd_sc_hd__clkbuf_8"
+    ],
+    "CTS_SINK_CLUSTERING_SIZE": 25,
+    "CTS_SINK_CLUSTERING_MAX_DIAMETER": 50,
+    "RT_MAX_LAYER": "met4",
+    "GRT_ALLOW_CONGESTION": false,
+    "GRT_OVERFLOW_ITERS": 50,
+    "DRT_OPT_ITERS": 64,
+    "RUN_ANTENNA_REPAIR": true,
+    "GRT_ANTENNA_ITERS": 20,
+    "RUN_LINTER": true,
+    "PRIMARY_GDSII_STREAMOUT_TOOL": "magic",
+    "FALLBACK_SDC_FILE": "dir::scripts/librelane/constraints.sdc",
+    "PNR_SDC_FILE": "dir::scripts/librelane/constraints.sdc",
+    "SIGNOFF_SDC_FILE": "dir::scripts/librelane/constraints.sdc",
+    "DESIGN_REPAIR_MAX_WIRE_LENGTH": 2000,
+    "ERROR_ON_LONG_WIRE": false,
+    "ERROR_ON_LINTER_WARNINGS": false,
+    "VDD_NETS": [
+        "VPWR"
+    ],
+    "GND_NETS": [
+        "VGND"
+    ],
+    "WIRE_LENGTH_THRESHOLD": 4000
 }

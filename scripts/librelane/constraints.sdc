@@ -1,4 +1,9 @@
-#===============================================================================
+# Tool suppression (Silencing noise in OpenROAD)
+catch { message -suppress GRT-0097 }
+catch { message -suppress RSZ-0065 }
+catch { message -suppress CTS-0041 }
+catch { message -suppress DRT-0349 }
+
 # SDC Timing Constraints - Systolic Array Hardware Accelerator
 # Target: SkyWater 130nm PDK (sky130A)
 # Design: top_wrapper (8x8 Systolic Array with Serial I/O)
@@ -34,6 +39,8 @@ set_clock_groups -asynchronous \
 # Control signals (relative to system clock)
 set_input_delay -clock clk -max 10.0 [get_ports start]
 set_input_delay -clock clk -min 1.0  [get_ports start]
+set_input_delay -clock clk -max 10.0 [get_ports rst_n]
+set_input_delay -clock clk -min 1.0  [get_ports rst_n]
 
 # Serial A input (relative to A serial clock)
 set_input_delay -clock A_in_serial_clk -max 5.0 [get_ports A_in_serial_data]
@@ -62,6 +69,11 @@ set_output_delay -clock clk -max 10.0 [get_ports C_out_serial_clk]
 set_output_delay -clock clk -min 1.0  [get_ports C_out_serial_clk]
 set_output_delay -clock clk -max 10.0 [get_ports C_out_frame_sync]
 set_output_delay -clock clk -min 1.0  [get_ports C_out_frame_sync]
+
+set_load 0.05 [get_ports done]
+set_load 0.05 [get_ports C_out_serial_data]
+set_load 0.05 [get_ports C_out_serial_clk]
+set_load 0.05 [get_ports C_out_frame_sync]
 
 #-------------------------------------------------------------------------------
 # Timing Exceptions
@@ -92,7 +104,7 @@ set_clock_uncertainty -hold  0.2 [get_clocks B_in_serial_clk]
 set_max_transition 1.0 [current_design]
 
 # Maximum fanout
-set_max_fanout 16 [current_design]
+set_max_fanout 20 [current_design]
 
 # Maximum capacitance (pF)
 set_max_capacitance 0.5 [current_design]

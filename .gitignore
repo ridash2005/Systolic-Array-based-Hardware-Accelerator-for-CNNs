@@ -3,6 +3,8 @@
 *.vcd
 *.log
 
+*.txt
+
 # OpenLane/EDA runs
 runs/
 __pycache__/
