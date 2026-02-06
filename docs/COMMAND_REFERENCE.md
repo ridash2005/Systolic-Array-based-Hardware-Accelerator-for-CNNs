@@ -1,112 +1,121 @@
-# 🛠️ Ultimate Command Reference
+# 🛠️ Comprehensive Command Reference
 
-This document provides every terminal command needed to simulate, verify, and implement the Systolic Array Accelerator.
+This document provides a single-source-of-truth for all terminal commands required to interact with, verify, and implement the Systolic Array Accelerator.
 
 ---
 
-## 1. Functional Simulation (Icarus Verilog)
-Use these commands for quick logic verification. They require **Icarus Verilog** and **GTKWave**.
+## 🧪 1. Functional Logic Simulation (Icarus Verilog)
 
-### 1.1 Top-Level Serial Simulation (Primary)
-Validates the full system including the Serial I/O wrappers.
+These commands are used for rapid iterative development and functional logic validation.
+
+### 📥 1.1 Full System Test (Serial-to-Parallel)
+Validates the entire SoC-style wrapper including SerDes logic and the 4x4 array.
 ```bash
-# Compile
+# Compilation
 iverilog -g2012 -o tb_top.vvp -I src/rtl src/rtl/*.sv src/tb/tb_top_iverilog.sv
 
-# Run
+# Simulation Execution
 vvp tb_top.vvp
 ```
-*   **Expected Output**: `TEST PASSED: Serial output matches expected GEMM result (All 4s)!`
-*   **Artifact**: Generates `dump.vcd`.
+*   **Result**: Expect a `PASSED` status and a generated `dump.vcd`.
 
-### 1.2 Robustness & Parameter Test
-Stress-tests the design with non-standard matrix sizes (e.g., 9x7).
+### 🛡️ 1.2 Parameterized Robustness Test
+Validates the generic RTL for non-standard array dimensions (e.g., 9x7).
 ```bash
-# Compile
+# Compilation (includes logic and robust testbench)
 iverilog -g2012 -o tb_robust.vvp -I src/rtl src/rtl/pe_mac.sv src/rtl/systolic4x4.sv src/tb/tb_systolic_robust.sv
 
-# Run
+# Execution
 vvp tb_robust.vvp
 ```
 
-### 1.3 View Waveforms
+### 📺 1.3 Waveform Inspection
 ```bash
+# Load the latest VCD into GTKWave
 gtkwave dump.vcd
 ```
 
 ---
 
-## 2. Professional Verification (UVM 1.2)
-UVM requires a commercial-grade simulator. These commands assume you are in the project root.
+## 🛡️ 2. Enterprise Verification (UVM 1.2)
 
-### 2.1 Running with Vivado Simulator (XSim)
+UVM commands require an industry-standard simulator (Vivado Xsim, Questasim, etc.).
+
+### 📂 2.1 Vivado Xsim (AMD/Xilinx)
 ```bash
-# Step 1: Compile all sources and UVM components
+# Step 1: Compile UVM sources
 xvlog --sv -f src/uvm_tb/compile_list.f -L uvm
 
-# Step 2: Elaborate the design
+# Step 2: Elaborate with timescale precision
 xelab top_tb -L uvm -timescale 1ns/1ps -debug typical
 
-# Step 3: Run the simulation (randomized test)
+# Step 3: Run randomized stimulus
 xsim top_tb -R
 ```
 
-### 2.2 Running with Questasim / ModelSim
+### 🔄 2.2 Questasim / Siemens EDA
 ```bash
-# Compile and run in one go
+# Compile and run in CLI mode
 vlog -f src/uvm_tb/compile_list.f
 vsim top_tb -c -do "run -all; quit"
 ```
-*   **Sign-off Criteria**: Look for `UVM_INFO` Match messages and `0 UVM_ERROR`.
 
 ---
 
-## 3. ASIC Implementation (LibreLane)
-Transforms your RTL into silicon layouts (GDSII). Requires **Docker** installed.
+## 💎 3. ASIC Implementation (LibreLane)
 
-### 3.1 Run Full RTL-to-GDSII Flow
-```bash
-librelane scripts/librelane/config.json --design-dir . --dockerized --tag RUN_FINAL
-```
-*   **Status**: This takes ~15-30 minutes. 
-*   **Outputs**: View final GDSII in `runs/RUN_FINAL/final/gds/top_wrapper.gds`.
+These commands transform RTL into hardware. **Docker** is required for environment isolation.
 
-### 3.2 Run Specific Stages (Advanced)
-If you only want to re-run from a specific point (e.g., after fixing a routing issue):
+### 🏗️ 3.1 RTL-to-GDSII Clean Run
 ```bash
-# Run flow starting from detailed routing
-librelane scripts/librelane/config.json --design-dir . --dockerized --from OpenROAD.DetailedRouting
+# Execute the full pipeline with a descriptive tag
+librelane scripts/librelane/config.json --design-dir . --dockerized --tag PRODUCTION_SIGN_OFF
 ```
 
-### 3.3 Check Sign-off Metrics
+### 🛠️ 3.2 Targeted Stage Execution
+To save time during physical design iteration, you can run specific tool commands.
 ```bash
-# View the summary report
-cat runs/RUN_FINAL/final/metrics.json
+# Re-run Static Timing Analysis (STA) only
+librelane scripts/librelane/config.json --design-dir . --dockerized --only OpenROAD.STAPostPNR
+```
+
+### 📈 3.3 Metric Extraction
+```bash
+# Parse the results JSON via terminal
+python -m json.tool runs/PRODUCTION_SIGN_OFF/final/metrics.json
 ```
 
 ---
 
-## 4. Repository Utilities
-### 4.1 Clean build artifacts
+## 🧹 4. Repository Utilities & Maintenance
+
+### 🧽 4.1 Clean Build Artifacts
 ```powershell
-# Windows PowerShell
-Remove-Item *.vvp, *.vcd, *.log -ErrorAction SilentlyContinue
+# Windows PowerShell (Clean recursive logs and binaries)
+Get-ChildItem -Include *.vvp, *.vcd, *.log, *.jou, *.pb -Recurse | Remove-Item
 
 # Linux/WSL
-rm -f *.vvp *.vcd *.log
+rm -rf *.vvp *.vcd *.log xsim.dir/ .librelane_work/
 ```
 
-### 4.2 Verify RTL Consistency
+### 🕵️ 4.2 Verilator Linting
+Identify potential hardware bugs before simulation.
 ```bash
-# Run Verilator lint check
-verilator --lint-only -Isrc/rtl src/rtl/top_wrapper.sv --top-module top_wrapper
+verilator --lint-only -Isrc/rtl src/rtl/top_wrapper.sv --top-module top_wrapper -Wall
 ```
 
 ---
 
-## 🏗️ Hardware Specs (Quick Ref)
-*   **Target PDK**: SkyWater 130nm
-*   **Standard Cell**: `sky130_fd_sc_hd`
-*   **Sign-off Clock**: 10ns (100 MHz)
-*   **Inputs**: 8-bit Signed (Int8)
-*   **Accumulator**: 32-bit Signed
+## 📋 5. Hardware Specifications Cheat-Sheet
+
+| Item | Specification |
+| :--- | :--- |
+| **Logic** | 8x8 Multiply-Accumulate (MAC) |
+| **PDK** | SkyWater 130nm (`sky130_fd_sc_hd`) |
+| **Clocks** | `clk` (Target 100MHz), 2x Serial Clocks |
+| **I/O** | Bit-Serial (SerDes) |
+| **Reset** | Async Active-Low |
+
+---
+
+**End of Command Reference**
