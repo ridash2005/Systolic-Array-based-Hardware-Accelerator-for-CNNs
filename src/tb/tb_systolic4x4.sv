@@ -154,11 +154,19 @@ module tb_systolic4x4();
       end
     end
 
-    // Final report
+    // Final report and results dump
+    $display("\n--- Verification Report ---");
+    for (r=0; r<ROWS; r=r+1) begin
+      for (c=0; c<COLS; c=c+1) begin
+        g_val = golden_mul_elem(r,c);
+        $display("Elem [%0d,%0d] -> DUT: %0d | Golden: %0d", r, c, $signed(C_out[r][c]), g_val);
+      end
+    end
+
     if (errors == 0) 
-      $display("SUCCESS: All %0d results match!", ROWS*COLS);
+      $display("\nSUCCESS: All %0d results match!", ROWS*COLS);
     else 
-      $display("FAILURE: Found %0d mismatches.", errors);
+      $display("\nFAILURE: Found %0d mismatches.", errors);
 
     $finish; // End simulation
   end

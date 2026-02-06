@@ -132,8 +132,17 @@ module tb_systolic_robust();
       end
     end
 
-    if (errors == 0) $display("ROBUSTNESS TEST PASSED: All %0d elements matched golden.", ROWS*COLS);
-    else $display("ROBUSTNESS TEST FAILED: %0d mismatches.", errors);
+    // Final report and results dump
+    $display("\n--- Robustness Verification Report ---");
+    for (r=0; r<ROWS; r=r+1) begin
+      for (c=0; c<COLS; c=c+1) begin
+        g_val = golden_mul_elem(r,c);
+        $display("Elem [%0d,%0d] -> DUT: %0d | Golden: %0d", r, c, $signed(C_out[r][c]), g_val);
+      end
+    end
+
+    if (errors == 0) $display("\nROBUSTNESS TEST PASSED: All %0d elements matched golden.", ROWS*COLS);
+    else $display("\nROBUSTNESS TEST FAILED: %0d mismatches.", errors);
 
     $finish;
   end

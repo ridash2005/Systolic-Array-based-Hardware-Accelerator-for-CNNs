@@ -141,17 +141,19 @@ module tb_top_iverilog();
     // 4x4 result matrix. 16 elements.
     // Each element should be 32'h00000004.
     
+    $display("\n--- Verification Report ---");
     for(i=0; i<16; i++) begin
        logic [31:0] elem;
        elem = C_captured[i*32 +: 32];
-       if(elem !== 4) begin
-          $display("ERROR: Element %0d mismatch. Expected 4, got %0d", i, elem);
+       $display("Result Element %0d -> DUT (Serial): %0d | Golden: 4", i, $signed(elem));
+       if($signed(elem) !== 4) begin
+          $display("  [X] ERROR: Mismatch at element %0d!", i);
           errors++;
        end
     end
     
-    if (errors == 0) $display("TEST PASSED: Serial output matches expected GEMM result (All 4s)!");
-    else $display("TEST FAILED with %0d errors", errors);
+    if (errors == 0) $display("\nTEST PASSED: Serial output matches expected GEMM result (All 4s)!");
+    else $display("\nTEST FAILED with %0d errors", errors);
 
     $finish;
   end
