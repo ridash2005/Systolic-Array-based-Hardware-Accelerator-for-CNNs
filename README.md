@@ -1,11 +1,15 @@
 # 🚀 Systolic Array Hardware Accelerator for CNNs
 
-[![Hardware](https://img.shields.io/badge/Hardware-SystemVerilog-blue.svg)](docs/ARCHITECTURE.md)
-[![PDK](https://img.shields.io/badge/PDK-SkyWater_130nm-brightgreen.svg)](https://skywater-pdk.readthedocs.io/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Verification](https://img.shields.io/badge/Verification-UVM_1.2-purple.svg)](docs/VERIFICATION.md)
+[![SystemVerilog](https://img.shields.io/badge/SystemVerilog-0052cc.svg?style=flat&logo=systemverilog&logoColor=white)](https://systemverilog.io/)
+[![Vivado](https://img.shields.io/badge/Xilinx-Vivado-E32222.svg?style=flat)](https://www.xilinx.com/products/design-tools/vivado.html)
+[![OpenLane](https://img.shields.io/badge/OpenROAD-OpenLane-blue.svg?style=flat)](https://github.com/The-OpenROAD-Project/OpenLane)
+[![Icarus Verilog](https://img.shields.io/badge/Simulator-Icarus_Verilog-green.svg?style=flat)](http://iverilog.icarus.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![SkyWater PDK](https://img.shields.io/badge/SkyWater_PDK-130nm-brightgreen.svg?style=flat)](https://skywater-pdk.readthedocs.io/)
+[![UVM 1.2](https://img.shields.io/badge/UVM-1.2-purple.svg?style=flat)](https://www.accellera.org/downloads/standards/uvm)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An industrial-grade, parameterizable **Systolic Array Accelerator** implemented in SystemVerilog. Optimized for high-throughput Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads, this project provides a complete RTL-to-GDSII flow for the **SkyWater 130nm PDK**.
+A parameterizable **Systolic Array Accelerator** implemented in SystemVerilog. Optimized for high-throughput Matrix-Matrix Multiplications (GEMM) in Deep Learning workloads, this project provides an RTL-to-GDSII flow for the **SkyWater 130nm PDK**.
 
 ---
 
@@ -33,22 +37,22 @@ graph TD
 - **Skewed Dataflow**: Internal hardware managed time-skewing for optimal spatial alignment.
 - **Area-Efficient I/O**: High-speed bit-serial interfaces reduce physical pin count by up to 95%.
 
-> [📖 **Read the Deep Technical Architecture**](docs/ARCHITECTURE.md)
+> [📖 **Read the Architecture Documentation**](docs/ARCHITECTURE.md)
 
 ---
 
-## ✅ Production-Grade Verification
+## ✅ Verification
 
-We ensure silicon-level reliability through a rigorous verification methodology.
+Verification is performed using the following methodology.
 
 | Tier | Methodology | Sign-off Status |
 | :--- | :--- | :--- |
 | **Functional** | Randomized SV Testbench | ✅ 100% Pass |
-| **Enterprise** | UVM 1.2 Environment | ✅ Signed-off |
+| **UVM** | UVM 1.2 Environment | ✅ Signed-off |
 | **Physical** | DRC/LVS/Antenna Sign-off | ✅ Clean |
 | **Timing** | Multi-corner STA (100MHz) | ✅ Met |
 
-> [📊 **View Full Verification & Sign-off Report**](docs/VERIFICATION.md)
+> [📊 **View Verification & Sign-off Report**](docs/VERIFICATION.md)
 
 ---
 
@@ -81,16 +85,16 @@ Requires **Docker** and **LibreLane**.
 librelane scripts/librelane/config.json --design-dir . --dockerized
 ```
 
-### 3. Detailed Command Reference
-For UVM instructions, wave viewing, and advanced implementation flags, see our [Ultimate Command Reference](docs/COMMAND_REFERENCE.md).
+### 3. Command Reference
+For UVM instructions, wave viewing, and advanced implementation flags, see the [Command Reference](docs/COMMAND_REFERENCE.md).
 
 ---
 
 ## 📚 Further Documentation
 *   [🚀 **Getting Started & Implementation Guide**](docs/GETTING_STARTED.md)
-*   [🏗️ **Deep Technical Architecture**](docs/ARCHITECTURE.md)
+*   [🏗️ **Architecture Documentation**](docs/ARCHITECTURE.md)
 *   [✅ **Verification & Sign-off Report**](docs/VERIFICATION.md)
-*   [🛠️ **Ultimate Command Reference**](docs/COMMAND_REFERENCE.md)
+*   [🛠️ **Command Reference**](docs/COMMAND_REFERENCE.md)
 
 ---
 
